@@ -22,5 +22,5 @@ if($_SESSION["login"]) {
     require 'vue/group.php';
     require 'vue/partials/footer.php'; 
 } else {
-    header("Location: /admin/");
+    header("Location: /html/admin/");
 } 

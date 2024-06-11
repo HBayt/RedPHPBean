@@ -1,8 +1,16 @@
 <div class="container mt-5">
     <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/admin/group.php">Groups</a></li>
-        <li class="breadcrumb-item active"><?php echo $group->name ?></li>
+        <li class="breadcrumb-item"><a href="/html/admin/group.php">Groups</a></li>
+        <li class="breadcrumb-item active">
+            <?php 
+                if (!empty($group->name)) {
+                    echo $group->name; 
+                }else{
+                    echo "User"; 
+                }
+            ?>
+        </li>
     </ol>
     </nav>
   <table class="table">
@@ -20,7 +28,7 @@
             <tr>
             <td><?php echo $u->name ?></td>
             <td><?php echo $u->email ?></td>
-            <td><a href="/admin/vacation.php?user_id=<?php echo $u->id ?>&user_name=<?php echo $u->name ?>"><button class="btn btn-primary">vacation</button></a></td>
+            <td><a href="/html/admin/vacation.php?user_id=<?php echo $u->id ?>&user_name=<?php echo $u->name ?>"><button class="btn btn-primary">vacation</button></a></td>
             <td><?php require 'partials/modalDetailUser.php';?></td>
             <td><?php require 'partials/modalUser.php';?></td>
             <td>

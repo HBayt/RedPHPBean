@@ -12,20 +12,31 @@ if($_SESSION["login"]) {
     require 'vue/partials/header.php';
     include 'vue/partials/nav.php';
 
-    $vacations = getVacationByUser($_GET['user_id']);
-
-    if(isset($_POST) && isset($_POST['start']) && isset($_POST['start']) && isset($_GET['user_id'])){
-        createVacation($_GET['user_id'], $_POST['start'], $_POST['end']);
-        header("Refresh:0");
-    } 
+    $vacations = getVacations(); 
 
     if (isset($_POST) && isset($_POST['id'])) {
+
+
         deleteVacation($_POST['id']);
+
+        // $_GET['user_id'] 
+
+        // var_dump(isset($_POST)); // TRUE
+        var_dump($_POST['id']); // 3, 128 
+        // var_dump($_POST['user_id']); 
+      
+
+
         header("Refresh:0");
     }
 
-    require 'vue/vacation.php';
+
+
+    require 'vue/vacationlist.php';
     require 'vue/partials/footer.php';
+
+
+
     
 } else {
     header("Location: /html/admin/");

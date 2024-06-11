@@ -11,6 +11,8 @@
             <a class="nav-link" href="/html/admin/callendar.php">Callendar</a>
             <a class="nav-link" href="/html/admin/admin.php">Admin</a>
             <a class="nav-link" href="/html/admin/mail.php">Mail</a>
+            <a class="nav-link" href="/html/admin/user.php">User</a>
+            <a class="nav-link" href="/html/admin/vacationlist.php">Vacation</a>
         </div>
         <div class="float-right">
             <a class="nav-link" href="/html/admin/logout.php">logout</a>

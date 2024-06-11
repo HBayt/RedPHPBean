@@ -12,6 +12,9 @@ if($_SESSION["login"]) {
     include '../model/group.php';
     include 'vue/partials/nav.php';
 
+
+
+
     if(isset($_GET['group_id'])) {
         $user = getUserByGroup($_GET['group_id']);
         $group = loadGroup($_GET['group_id']);
@@ -44,8 +47,17 @@ if($_SESSION["login"]) {
     }
 
     require 'vue/user.php';
-
     require 'vue/partials/footer.php';
 } else {
-    header("Location: /admin/");
+    // ______________________________________
+    // ORIGINAL SERVEUR LINUX
+    // ______________________________________
+    // header("Location: /admin/"); // Original KO sur XAMPP 
+
+    // ______________________________________
+    // DEV LOCAL SERVEUR XAMPP 
+    // ______________________________________
+
+    // header("Location: http://localhost/admin/"); // KO  sur XAMPP 
+    header("Location: /html/admin/"); // OK sur XAMPP | Firefox : http://localhost/html/admin/ 
 } 

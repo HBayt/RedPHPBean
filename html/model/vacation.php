@@ -16,3 +16,11 @@ function deleteVacation($id) {
     $vacation = R::load('vacation', $id);
     R::trash($vacation);
 }
+
+
+function getVacations() {
+
+    $vacations = R::getAll("SELECT * FROM user LEFT JOIN vacation ON user.id = vacation.user_id WHERE user_id IS NOT NULL");
+
+    return $vacations;
+}
