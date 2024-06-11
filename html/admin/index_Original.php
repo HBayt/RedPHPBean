@@ -13,7 +13,7 @@ if (isset($_POST['password']) && isset( $_POST['username']) ){
 }
 if(isset($_SESSION["login"])){
     if($_SESSION["login"]) {
-        header("Location: /html/admin/group.php");
+        header("Location: /admin/group.php");
     }
 }
 

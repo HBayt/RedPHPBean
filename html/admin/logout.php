@@ -4,4 +4,4 @@ session_start();
 
 unset($_SESSION["login"]);
 
-header("Location: /admin/");
+header("Location: /html/admin/");

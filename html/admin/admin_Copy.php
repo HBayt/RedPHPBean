@@ -4,11 +4,30 @@
 // ORIGINAL CODE 
 
 
+// Affichage des erreurs
+/* 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL); 
+*/ 
+
+
 // TESTS 
 // console.log("Message"); 
 // console.log(variable); 
 // var_dump(VARIABLE ); 
 // var_dump("MESSAGE"); 
+// echo "<h1> Hello world! from admin.php / vue partielle 3</h1>"; 
+
+/* 
+echo "<pre>";
+// var_dump($_SESSION); // Affiche toutes les variables de session pour le debugging
+echo "</pre>";
+exit();
+
+*/ 
+
+
 
 session_start();
 
