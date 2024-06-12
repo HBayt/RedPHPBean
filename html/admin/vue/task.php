@@ -50,7 +50,7 @@
     <button type="button" class="btn btn-primary  mt-3 mb-5" data-toggle="modal" data-target="#createModal">
         Create
     </button>
-    <form action="/admin/generateTasks.php" method="POST">
+    <form action="/html/admin/generateTasks.php" method="POST">
         <h3>Generate task</h3>
         <div class="form-group mt-3">
             <label>From</label>

@@ -13,5 +13,5 @@ if($_SESSION["login"]) {
     } 
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 } else {
-    header("Location: /admin/");
+    header("Location: /html/admin/");
 } 
