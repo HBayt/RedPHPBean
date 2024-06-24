@@ -1,13 +1,13 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-details-<?php echo $u->id ?>">
-    Details
+    Details 
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="modal-details-<?php echo $u->id ?>" tabindex="-1" role="dialog" aria-labelledby="ModalDetailsUser" aria-hidden="true">
+<div class="modal fade" id="modal-details-<?php echo $u->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="ModalDetailsUser"> Details / user <?php echo $u->name?></h5>
+        <h5 class="modal-title" id="exampleModalLabel">Details (<?php echo $u->name ?>)</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -17,8 +17,8 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Start</th>
-                <th scope="col">End</th>
+                <th scope="col">start</th>
+                <th scope="col">end</th>
             </tr>
             </thead>
             <tbody>

@@ -16,7 +16,8 @@ if($_SESSION["login"]) {
         } else {
             createGroup($_POST['name']);
         }
-        header("Refresh:0");
+        // header("Refresh:0"); 
+        header("Location: /html/admin/group.php");
     }
 
     require 'vue/group.php';

@@ -1,10 +1,10 @@
 <?php
-require 'config.php';
-require 'vue/partials/header.php';
-require 'utils/connectdb.php';
-require 'model/task.php';
+    require 'config.php';
+    require 'vue/partials/header.php';
+    require 'utils/connectdb.php';
+    require 'model/task.php';
 
-$task = getTasks();
+    $task = getTasks();
 ?>
 
 <script>
@@ -14,28 +14,47 @@ $task = getTasks();
         initialView: 'dayGridMonth',
         events: <?php echo json_encode(getTasked()) ?>
     });
-
-    calendar.render();
+        calendar.render();
     });
-    
 </script>
-<div class="container mt-5">
-<a href="http://localhost/html/admin/admin.php">http://localhost/html/admin/admin.php</a>
-<br>
-    <a href="admin/admin.php">admin/admin.php </a>
-    <br>
-    <a href="../html/admin/admin.php">../html/admin/admin.php</a>
-    <br>
-    <a href="admin.php">Login (Path Serveur LINUX)</a>
-    <br>
-    <br>
-    <h2>Index</h2>
-    <?php foreach ($task as $t) { ?>
-        <div class="badge" style="background-color: <?php echo $t->color ?>;">
-            <?php echo $t->name ?>
-        </div>
-    <?php } ?>
-    <div id='calendar' class="mt-5"></div>
+
+
+
+<!-- ------------------------------------------------- -->    
+<!-- Page title & Button Create (Insert into db.table ) -->     
+<!-- ------------------------------------------------- -->     
+ 
+<section class="container mt-5">
+    <div class="container">
+    
+        <table class="table">
+            <tr> 
+                <td>
+                    <!-- Title -->    
+                    <h2>Index</h2>                                 
+                </td>            
+                <td> 
+                    <div style="text-align: right;">
+                        <!-- BOUTON Login --> 
+                        <a href="admin/admin.php">Login </a>
+                        <br>
+                        <a href="../html/admin/admin.php">Login (2)</a>
+                        <br>  
+                        <br> 
+                    </div>
+                </td> 
+            </tr>
+        </table> 
+        <br> 
+        
+        <?php foreach ($task as $t) { ?>
+            <div class="badge" style="background-color: <?php echo $t->color ?>;">
+                <?php echo $t->name ?>
+            </div>
+        <?php } ?>
+
+        <br> 
+        <div id='calendar' class="mt-5"></div>
     
 </div>
 <?php

@@ -22,16 +22,36 @@ $task = getTasks();
     });
     
 </script>
-<div class="container mt-5">
-    <h2>Index</h2>
-    <?php foreach ($task as $t) { ?>
-        <div class="badge" style="background-color: <?php echo $t->color ?>;">
-            <?php echo $t->name ?>
-        </div>
-    <?php } ?>
-    <div id='calendar' class="mt-5"></div>
-    
+
+
+
+<!-- ------------------------------------------------- -->    
+<!-- Page title & Button Create (Insert into db.table ) -->     
+<!-- ------------------------------------------------- -->     
+ 
+<section class="container mt-5">
+    <div class="container">
+        <!-- Title -->    
+        <h2>Index</h2>
+        
+        <br>
+        <hr>
+        <br>
+
+        <!-- ------------------------------------------------- -->    
+        <!-- Button to open Modal Window -->     
+        <!-- ------------------------------------------------- --> 
+        <?php foreach ($task as $t) { ?>
+            <div class="badge" style="background-color: <?php echo $t->color ?>;">
+                <?php echo $t->name ?>
+            </div>
+        <?php } ?>
+        <div id='calendar' class="mt-5"></div>
+        
+    </div>
 </div>
+
+</section>
 <?php
 require 'vue/partials/footer.php';
 } else {

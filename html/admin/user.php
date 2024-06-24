@@ -13,8 +13,6 @@ if($_SESSION["login"]) {
     include 'vue/partials/nav.php';
 
 
-
-
     if(isset($_GET['group_id'])) {
         $user = getUserByGroup($_GET['group_id']);
         $group = loadGroup($_GET['group_id']);
@@ -43,7 +41,8 @@ if($_SESSION["login"]) {
             }
 
         }
-        header("Refresh:0");
+        // header("Refresh:0");
+        header("Location: /html/admin/user.php"); 
     }
 
     require 'vue/user.php';

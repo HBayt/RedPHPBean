@@ -1,15 +1,25 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#alter-modal-<?php echo $t->id; ?>">
-    Alter
+    Update
 </button>
+
+<!-- ------------------- --> 
+<!-- Modal Task / Update --> 
+<!-- ------------------- --> 
 <div class="modal fade" id="alter-modal-<?php echo $t->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+		
+		<!-- Modal header --> 
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modifier</h5>
+			<!-- Modal window / Title --> 
+            <h5 class="modal-title" id="exampleModalLabel">Update task</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
+
+		<!-- Modal Body/Content & Form --> 
+
         <form method="POST" class="task">
             <input type="hidden"  name="action"  value="updateTask">
             <input type="hidden"  name="id"  value="<?php echo $t->id; ?>">
@@ -23,6 +33,9 @@
                     <input type="text" class="form-control color-picker" id="color" name="color" value="<?php echo $t->color; ?>" placeholder="color">
                     <button class="picker btn btn-primary" height="20px" width="20px"></button>
                 </div>
+				<!-- ----------------- --> 
+				<!-- Checkbox Weekdays --> 
+				<!-- ----------------- --> 
                 <div class="form-group mt-3">
                     <label>Weekday</label>
                     <div class="form-check">
@@ -56,6 +69,9 @@
                         </label>
                     </div>
                 </div>
+				<!-- ----------------- --> 
+				<!-- Checkbox Groups   --> 
+				<!-- ----------------- --> 
                 <div class="form-group mt-3">
                 <label>Group</label>
                 <?php foreach ( $group as $g ){ ?>
@@ -68,11 +84,15 @@
                 <?php }  ?>
                 </div>
             </div>
+
+			<!-- Modal footer --> 
             <div class="modal-footer">
+				<!-- Buttons Close / Update --> 
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </div>
-        </form>
+
+        </form><!-- end./Form --> 
         </div>
     </div>
 </div>

@@ -13,22 +13,6 @@
         </li>
     </ol>
     </nav>
-</div>
-
-
-<!-- ------------------------------------------------- -->    
-<!-- Page title & Button Create (Insert into db.table ) -->     
-<!-- ------------------------------------------------- -->      
-<div class="container">
-    <h2>Users</h2>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal" style="float: right;">Create </button>
-</div>
-
-
-<!-- ------------------------------------------------- -->    
-<!-- User list from DB MySQL -->     
-<!-- ------------------------------------------------- -->    
-<div class="container mt-5">
   <table class="table">
         <thead>
             <tr>
@@ -44,25 +28,15 @@
             <tr>
             <td><?php echo $u->name ?></td>
             <td><?php echo $u->email ?></td>
-
-            <!-- ------------------------------------------------- -->    
-            <!-- CRUD Actions / Modal windows -->     
-            <!-- ------------------------------------------------- -->    
             <td><a href="/html/admin/vacation.php?user_id=<?php echo $u->id ?>&user_name=<?php echo $u->name ?>"><button class="btn btn-primary">Vacation</button></a></td>
             <td><?php require 'partials/modalDetailUser.php';?></td>
             <td><?php require 'partials/modalUser.php';?></td>
             <td>
-
-                <!-- ------------------------------------------------- -->    
-                <!-- Modal Button Delete (Insert into db.table ) -->     
-                <!-- ------------------------------------------------- -->    
                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal<?php echo $u->id ?>">
                     Delete
                 </button>
 
-                <!-- ------------------------------------------------- -->    
-                <!-- Modal window to Delete a user  -->     
-                <!-- ------------------------------------------------- -->    
+                <!-- Modal -->
                 <div class="modal fade" id="deleteModal<?php echo $u->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -91,14 +65,16 @@
         <?php } ?>
     </table>
 
-    <!-- ------------------------------------------------- -->    
-    <!-- Modal Button Insert into DB Table (MySQL) -->     
-    <!-- ------------------------------------------------- -->    
-    <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
+        Create
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">New user</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Modifier</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>

@@ -202,7 +202,7 @@ function getTaskedAdmin() {
         $task['backgroundColor'] = $tasked->task->color;
         $task['borderColor'] = $tasked->task->color;
         $task['allDay'] = true;
-        $task['url'] = '/html/admin/sick.php?tasked_id=' . $tasked->id;
+        $task['url'] = '/admin/sick.php?tasked_id=' . $tasked->id;
         $array[] = $task;
     }
     return $array;

@@ -22,6 +22,22 @@ function getUser() {
     return $users;
 }
 
+
+function getUserIdByEmail($email) {
+
+    // return R::find('user', 'email LIKE ? LIMIT 1', [$email]); 
+    // R::getRow( 'SELECT * FROM user WHERE email LIKE ? LIMIT 1', [ '%Jazz%' ]); 
+    //  $book  = R::findOne( 'book', ' title = ? ', [ 'SQL Dreams' ] );
+
+    // return R::getRow( 'SELECT id, email, group_id FROM user WHERE email LIKE ? LIMIT 1', [$email]); 
+    $user  = R::findOne( 'user', ' email = ? ', [ $email ] );
+    // $user =  R::load( 'user', $email );
+    return $user; 
+
+}
+
+
+
 function deleteUser($id) {
     $user = R::load( 'user', $id ); 
     R::trash( $user );

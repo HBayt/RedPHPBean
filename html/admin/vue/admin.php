@@ -1,22 +1,49 @@
+<!-- ------------------------------------------------- -->    
+<!-- Page title & Button Create (Insert into db.table ) -->     
+<!-- ------------------------------------------------- -->     
+ 
 <section class="container mt-5">
+
+<div class="container">
     <h2>Admin</h2>
+
+
+    <!-- ------------------------------------------------- -->    
+    <!-- Button to open Modal Window -->     
+    <!-- ------------------------------------------------- --> 
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAdminModal" style="float: right;">Create </button>
+    <br><br>
+    <hr>
+</div>
+
+
+<!-- ------------------------------------------------- -->    
+<!-- Admin user list from MySql DB -->     
+<!-- ------------------------------------------------- --> 
+
     <table class="table">
         <thead>
             <tr>
-            <th scope="col">Username</th>
-            <th scope="col"></th>
+                <th scope="col">Username</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <?php foreach( $admin as $a ) {?>
             <tr>
             <td><?php echo $a->name ?></td>
             <td>
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal<?php echo $a->id ?>">
+
+                <!-- ------------------------------------------------- -->    
+                <!-- Modal / Button Delete -->     
+                <!-- ------------------------------------------------- --> 
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteAdminModal<?php echo $a->id ?>">
                     Delete
                 </button>
 
-                <!-- Modal -->
-                <div class="modal fade" id="deleteModal<?php echo $a->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <!-- ------------------------------------------------- -->    
+                <!-- Modal window to Delete a Administrator -->     
+                <!-- ------------------------------------------------- --> 
+                <div class="modal fade" id="deleteAdminModal<?php echo $a->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -37,18 +64,18 @@
                         </div>
                     </div>
                 </div>   
+
+
             </td>
             </tr>
 
         <?php } ?>
     </table>
-    <div class="align-middle">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
-        Create
-    </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- ------------------------------------------------- -->    
+    <!-- Modal window to Create new Administrator  -->     
+    <!-- ------------------------------------------------- --> 
+    <div class="modal fade" id="createAdminModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -79,4 +106,5 @@
             </div>
         </div>
     </div>
+
 </section>

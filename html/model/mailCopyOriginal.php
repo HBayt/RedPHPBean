@@ -5,26 +5,33 @@ use PHPMailer\PHPMailer\Exception;
 require_once __DIR__ . "/../vendor/autoload.php";
 
 
+// Create mail into MySQL DB if not mail found 
 function createDefaultMail ($text) {
+
     $mails = R::findAll( 'mail' );
+
     if($mails == []) {
         $mail = R::dispense( 'mail' );
         $mail->text = $text;
         $id = R::store( $mail );
     }
+
 }
 
+// Get mail from MySQL DB 
 function getMail () {
     $mails = R::findAll( 'mail' );
     return $mails[1];
 }
 
+// Update mail from MySQL DB 
 function updateMail ($text) {
     $mail = getMail();
     $mail->text = $text;
     R::store($mail);
 }
 
+// Send mail 
 function sendmail ($t) {
     try {
         $mail = new PHPMailer(true);
@@ -39,7 +46,7 @@ function sendmail ($t) {
         $mail->From = SMTP_USER;
         $mail->FromName = "Task Manager";
 
-        $mail->Subject = $t->task->name;
+        $mail->Subject = $t->task->name . " -> " . $t->user->name;
 
         $body = getMail()->text;
 
@@ -50,29 +57,37 @@ function sendmail ($t) {
         $mail->Body = $body;
         $mail->IsHTML(true);
 
+        // _______________________________
+        // Receivers 
+        // _______________________________
         $mail->addAddress($t->user->email, $t->user->name);
-        $mail->addBCC('dalai.wenger@battenberg.ch', $name='Dalai Wenger');
-        $mail->addBCC('robin.gottardo@battenberg.ch', $name='Robin Gottardo');
-        $mail->addBCC('andy.linder@battenberg.ch', $name='Andy Linder');
+
+        $mail->addBCC('raphael.crivelli@battenberg.ch', $name='Raphael CRIVELLI');
+        $mail->addBCC('robin.gottardo@battenberg.ch', $name='Robin GOTTARDO');
+        $mail->addBCC('andy.linder@battenberg.ch', $name='Andy LINDER');
         $mail->addBCC('Richard.Grandgirard@battenberg.ch', $name='Richard Grandgirard');
         $mail->addBCC('Adriana.Aniello@battenberg.ch', $name='Adriana Aniello');
         $mail->addBCC('mohamed.ibrahim@battenberg.ch', $name='Mohamed Ibrahim');
         $mail->addBCC('Quentin.Keller@battenberg.ch', $name='Quentin Keller');
         $mail->addBCC('corinne.stotzer@battenberg.ch', $name='Corinne Stotzer');
-        $mail->addBCC('stefanie.wick@battenberg.ch', $name='Stefanie Wick');
+        $mail->addBCC('stefanie.hostettler@battenberg.ch', $name='Stefanie Hostettler');
         $mail->addBCC('sylvia.baelli@battenberg.ch', $name='Sylvia Bälli');
         $mail->addBCC('monika.vonaesch@battenberg.ch', $name='Monika von Aesch');
         $mail->addBCC('elisabeth.ruckstuhl@battenberg.ch', $name='Elisabeth Ruckstuhl');
         $mail->addBCC('frank.krumm@battenberg.ch', $name='Frank Krumm');
+        $mail->addBCC('dalai.wenger@battenberg.ch', $name='Dalai Wenger');
+        $mail->addBCC('chloe.kessi@battenberg.ch', $name='Chloe Kessi');
 
-        // SEND 
-        $mail->send();
+        // _______________________________
 
-        // Confirmation message 
+        $mail->send(); 
+
         echo 'Email has been sent';
-
     } catch (Exception $e) {
         echo 'Email could not be sent. Mailer Error: '. $mail->ErrorInfo;
     }
 }
+
+
+
 ?>

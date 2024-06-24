@@ -1,3 +1,16 @@
+<!-- ------------------------------------------------- -->    
+<!-- Page title & Button Create (Insert into db.table ) -->     
+<!-- ------------------------------------------------- -->      
+<div class="container">
+    <h2>Groups</h2>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createGroupModal" style="float: right;">Create </button>
+
+</div>
+
+<!-- ------------------------------------------------- -->    
+<!-- Group list from MySQL DB  -->     
+<!-- ------------------------------------------------- -->    
 <div class="container mt-5">
   <table class="table">
         <thead>
@@ -11,11 +24,17 @@
             <tr>
             <td><?php echo $g->name ?></td>
             <td>
+
+            <!-- ------------------------------------------------- -->    
+            <!-- Delete Button  -->     
+            <!-- ------------------------------------------------- -->    
             <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal<?php echo $g->id ?>">
                 Delete
             </button>
 
-            <!-- Modal -->
+            <!-- ------------------------------------------------- -->    
+            <!-- Modal for Delete action (CRUD) -->     
+            <!-- ------------------------------------------------- -->    
             <div class="modal fade" id="deleteModal<?php echo $g->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -39,18 +58,17 @@
                 </div>
             </div>
             </td>
-            <td><a href="/html/admin/user.php?group_id=<?php echo $g->id ?>"><button type="button" class="btn btn-primary">Add User</button></a></td>
+            <td><a href="/html/admin/user.php?group_id=<?php echo $g->id ?>"><button type="button" class="btn btn-primary">Users</button></a></td>
             </tr>
             
         <?php } ?>
     </table>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
-        Create
-    </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- ------------------------------------------------- -->    
+    <!-- Modal container -->     
+    <!-- ------------------------------------------------- -->    
+    <div class="modal fade" id="createGroupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
@@ -62,7 +80,7 @@
             <form method="POST">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>libelé</label>
+                        <label>libelé (name)</label>
                         <input type="text" class="form-control" id="name" name="name" value="" placeholder="Name">
                     </div>
                 </div>

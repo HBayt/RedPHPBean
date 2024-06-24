@@ -24,11 +24,13 @@ if($_SESSION["login"]) {
 
     if(isset($_POST['name']) and isset($_POST['password'])){
         createAdmin($_POST['name'], $_POST['password']);
-        header("Refresh:0");
+        // header("Refresh:0"); 
+        header("Location: /html/admin/admin.php"); 
     }
     if (isset($_POST['id_admin'])) {
         deleteAdmin($_POST['id_admin']);
-        header("Refresh:0");
+        // header("Refresh:0");
+        header("Location: /html/admin/admin.php"); 
     }
    
     include 'vue/admin.php';

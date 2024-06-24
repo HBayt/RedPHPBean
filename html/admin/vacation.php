@@ -16,12 +16,14 @@ if($_SESSION["login"]) {
 
     if(isset($_POST) && isset($_POST['start']) && isset($_POST['start']) && isset($_GET['user_id'])){
         createVacation($_GET['user_id'], $_POST['start'], $_POST['end']);
-        header("Refresh:0");
+        // header("Refresh:0");
+        header("Location: /html/admin/vacation.php");
     } 
 
     if (isset($_POST) && isset($_POST['id'])) {
         deleteVacation($_POST['id']);
-        header("Refresh:0");
+        // header("Refresh:0");
+        header("Location: /html/admin/vacation.php");
     }
 
     require 'vue/vacation.php';

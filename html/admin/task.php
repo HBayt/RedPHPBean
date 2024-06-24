@@ -23,11 +23,23 @@ if($_SESSION["login"]) {
                 updateTask($_POST['id'], $_POST['name'], $_POST['color'], $_POST['weekdays'], $_POST['idGroup']);
             }
         }
-        header("Refresh:0");
+        // header("Refresh:0");
+        header("Location: /html/admin/task.php");
     }
+    
     require 'vue/task.php';
-
     require 'vue/partials/footer.php';
+
 } else {
-    header("Location: /admin/");
+    // ______________________________________
+    // ORIGINAL SERVEUR LINUX
+    // ______________________________________
+    // header("Location: /admin/"); // Original KO sur XAMPP 
+
+    // ______________________________________
+    // DEV LOCAL SERVEUR XAMPP 
+    // ______________________________________
+
+    // header("Location: http://localhost/admin/"); // KO  sur XAMPP 
+    header("Location: /html/admin/"); // OK sur XAMPP | Firefox : http://localhost/html/admin/ 
 } 
