@@ -18,18 +18,12 @@ if($_SESSION["login"]) {
     // ______________________________________________________________
     // 
 
-   
     if(isset($_POST) &&  isset($_GET['user_id'])){ // ERROR 
 
-        // $vacation_name = $_GET['user_name'];
-        $vacation_id = $_GET['user_id']; 
-        
-        $vacations = getVacationByUser($_GET['user_id']);     
-        
+        $vacations = getVacationByUser($_GET['user_id']);         
+    }else{  
+        $vacations = getVacations(); 
     }
-    else{$vacations = getVacations();}
-
-    
 
     // ______________________________________________________________
     // CREATE VACATION 
@@ -37,13 +31,16 @@ if($_SESSION["login"]) {
     if(isset($_POST) && isset($_POST['start']) && isset($_POST['end']) && isset($_POST['mail']) && isset($_POST['create_vacation'])){ // ERROR 
     
         $email = (string) $_POST['mail']; 
+
+        // $user  = R::findOne( 'user', ' email = ? ', [ $email ] );
         $user = getUserIdByEmail($email); 
-        $vacations = getVacationByUser($user['id']);  
+        
         createVacation($user['id'], $_POST['start'], $_POST['end']);    
-
-       // header("Refresh:0"); 
-       header("Location: /html/admin/vacationlist.php?user_id=".$user['id']."&user_name=".$user["name"]);
-
+        // header("Refresh:0"); 
+        header("Location: /html/admin/vacationlist.php");
+        // var_dump($user) ; 
+        // var_dump($user['name']) ; 
+        // var_dump($mail); 
     } 
 
     // ______________________________________________________________
@@ -99,16 +96,16 @@ if($_SESSION["login"]) {
 
             $email = (string) $_POST['email'] ;    
             $user = getUserIdByEmail($email); 
-            $vacations = getVacationByUser($user['id']);   
+            // var_dump($user); 
 
+            $user_id = $user["id"]; 
+            var_dump( $user["id"]); 
 
             // updateVacation( $_POST['update_vacation'], $_POST['start'],  $_POST['end'], $_GET['user_id']) ; 
-            updateVacation( $_POST['id_vacation'], $db_startdate, $db_enddate,  $user["id"]) ; 
- 
-    
-            // header("Refresh:0"); 
-            // header("Location: /html/admin/vacationlist.php");           
-            header("Location: /html/admin/vacationlist.php?user_id=".$user['id']."&user_name=".$user["name"]);
+            updateVacation( $_POST['id_vacation'], $db_startdate, $db_enddate, $user_id ) ; 
+
+            header("Refresh:0"); 
+            // header("Location: /html/admin/vacationlist.php");
 
         } 
 
@@ -116,21 +113,12 @@ if($_SESSION["login"]) {
     // DELETE VACATION
     // ______________________________________________________________ 
     // if (isset($_POST) && isset($_POST['delete_vacation'] )) {
-        if (isset($_POST['delete_vacation'] ) && isset($_POST['id_email'] )) {
+        if (isset($_POST['delete_vacation'] )) {
 
-            $email = (string) $_POST['id_email']; 
-            $user = getUserIdByEmail($email); 
-            $vacations = getVacationByUser($user['id']);    
-            // var_dump($user['id']);   
-
+            // var_dump($_POST['id_vacation']); 
             deleteVacation($_POST['id_vacation']);
-
-            // header("Refresh:0"); 
-            //  header("Location: /html/admin/vacationlist.php");               
-            // header("Location: /html/admin/vacationlist.php?user_id=".$user['id']);
-            header("Location: /html/admin/vacationlist.php?user_id=".$user['id']."&user_name=".$user["name"]);
-    
-    
+            // header("Refresh:0");    
+            header("Location: /html/admin/vacationlist.php");        
         }
 
     

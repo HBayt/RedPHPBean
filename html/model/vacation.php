@@ -9,7 +9,10 @@ function createVacation($user_id, $start, $end) {
 }
 
 function getVacationByUser($user_id) {
-    return R::find('vacation', 'user_id = '. $user_id);
+    // return R::find('vacation', 'user_id = '. $user_id);
+    $vacations = R::getAll("SELECT * FROM user LEFT JOIN vacation ON user.id = vacation.user_id WHERE user_id = ? ORDER BY user.name DESC", [$user_id,]);
+    return $vacations;
+
 }
 
 function deleteVacation($id) {
@@ -19,9 +22,8 @@ function deleteVacation($id) {
 
 
 function getVacations() {
-
-    $vacations = R::getAll("SELECT * FROM user LEFT JOIN vacation ON user.id = vacation.user_id WHERE user_id IS NOT NULL");
-
+    // $vacations = R::getAll("SELECT * FROM user LEFT JOIN vacation ON user.id = vacation.user_id WHERE user_id IS NOT NULL ORDER BY name ASC");
+    $vacations = R::getAll("SELECT * FROM user LEFT JOIN vacation ON user.id = vacation.user_id WHERE user_id IS NOT NULL ORDER BY user.name DESC");
     return $vacations;
 }
 
@@ -32,28 +34,14 @@ function geVacation($id) {
 
 
 function updateVacation($id, $start, $end, $user_id) {
-    $vacation = R::load( 'vacation', $id );
+    $vacation = R::load( 'vacation', $id ); 
+
     $vacation->start = $start;
     $vacation->end = $end; 
     $vacation->user_id = $user_id;
 
     R::store( $vacation ); 
-
     // var_dump($user_id);  
 }
 
 
-/*
-function getUserIdByEmail($email) {
-
-    // return R::find('user', 'email LIKE ? LIMIT 1', [$email]); 
-    // R::getRow( 'SELECT * FROM user WHERE email LIKE ? LIMIT 1', [ '%Jazz%' ]); 
-    //  $book  = R::findOne( 'book', ' title = ? ', [ 'SQL Dreams' ] );
-
-    // return R::getRow( 'SELECT id, email, group_id FROM user WHERE email LIKE ? LIMIT 1', [$email]); 
-    $user  = R::findOne( 'user', ' email = ? ', [ $email ] );
-    return $user; 
-
-}
-
-*/ 

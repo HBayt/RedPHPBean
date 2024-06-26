@@ -101,51 +101,16 @@ if($_SESSION["login"]) {
             $bcc_recipients = $_POST['check_list']; 
             // var_dump($bcc_recipients); // array(3){[0]=>string(1) "2" [1]=> string(2) "14" [2] => string(2) "22"}
             // echo sizeof("Number of Addressees : ".$bcc_recipients);
-
-
-            /* 
-            $tasked= R::findall('tasked');
-            $now = new DateTime('Today');
-            $now->setTime(0, 0, 0, 0);
-
-
-
-            foreach ($tasked as $t){
-                
-                $date = new DateTime($t->start);
-                if($date == $now){   
-                sendmail($t, $bcc_recipients);
-                }
-            }
-
-            */ 
-
-
-
             
-          sendmail($bcc_recipients); 
+            sendmail($bcc_recipients); 
           
-
             // alert("YourMessage : ".$msg);
             //  echo "</br></br>";
         }
 
-
-/* 
-        $tasked= R::findall('tasked');
-        $now = new DateTime('Today');
-        $now->setTime(0, 0, 0, 0);
-
-        foreach ($tasked as $t){
-            $date = new DateTime($t->start);
-            if($date == $now){   
-            sendtask($t); 
-            }
-        }
-*/ 
 	
 		// header("Refresh:0");
-        // header("Location: /html/admin/addressee.php");
+        header("Location: /html/admin/addressee.php");
 		
     } // OK 
 

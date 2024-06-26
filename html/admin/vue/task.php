@@ -7,7 +7,6 @@
 </div>
 
 
-
 <!-- ------------------------------------------------- -->    
 <!-- Task list from MySQL DB  -->     
 <!-- ------------------------------------------------- -->    
@@ -72,7 +71,6 @@
             <label>From</label>
             <input type="date"  class="form-control" name="from" value="<?php echo (new DateTime)->format('Y-m-d'); ?>">
         </div>
-
         <button type="submit" class="btn btn-primary mt-3">Generate task</button>
     </form>
 

@@ -37,8 +37,6 @@ $task = getTasks();
     <br>
     <br>
 
-
-
     <h2>Index</h2>
 
     <?php foreach ($task as $t) { ?>
@@ -52,3 +50,6 @@ $task = getTasks();
 </div>
 <?php
 require 'vue/partials/footer.php';
+
+
+

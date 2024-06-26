@@ -74,23 +74,40 @@ function gennerateTasks($from, $to){
         R::store($u);
     }
     
-    // Deletes task who are set in the futur
+    // Deletes task who are set in the futur or not affected 
     $tasked = R::findAll( 'tasked' );
 
     foreach ($tasked as $t) {
-        if(new DateTime($t->start) >= $from) {
+
+        /*
+            To check whether it is null or not, isset() is enough; 
+            For checking whether it is empty or not, you better trim() the string as it removes spaces and spaces are counted as character; 
+            If you check emptiness with empty() function.
+        */ 
+        if($t->title == null || $t->user_id == null || (new DateTime($t->start) >= $from) ){
             R::trash($t);
         }
     }
 
-    $tasks = R::findAll( 'task' );
-
-    $objDateTime =  new DateTime($from->format('c'));
+    /* 
+    <?php 
+        $date = new \DateTime('NOW');
+        $formatedDate1 = $date->format('l'); // Jour de la semaine en anglais, ex. Tuesday
+        $formatedDate2 = $date->format('c');// Date, ex. 2024-06-25T14:56:43+02:00
+        echo "<h1>".$formatedDate2."<h1>"; 
+    ?> 
+    */ 
     
+    $tasks = R::findAll( 'task' );
+    $objDateTime =  new DateTime($from->format('c')); // ISO 8601 date | Example returned values : 2004-02-12T15:19:21+00:00 
 
     while($objDateTime <=  $to){
+
         foreach($tasks as $task) {
+
+            // task weekdays array
             $weekdays = json_decode($task->weekdays);
+
             if (in_array($objDateTime->format('l'), $weekdays)) {
                 $users = [];
                 foreach ($task->sharedGroup as $group) {
@@ -180,7 +197,6 @@ function getUserWithLeastTask($user) {
     foreach ($user as $u) {
         if ($u->doneTask == $least) {
             $usersOutput[] = $u;
-            
         }
     }
     

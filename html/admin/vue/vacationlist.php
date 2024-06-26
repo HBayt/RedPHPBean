@@ -4,7 +4,13 @@
 
 
 <div class="container">
-    <h2>Vacations</h2>
+<h2>Vacations
+        <?php 
+        if(isset($_GET['user_name'])){
+             echo " - ".  $_GET['user_name']; 
+        } 
+        ?>
+    </h2>
 
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal" style="float: right;">Create </button>
     <br><br>
@@ -68,11 +74,18 @@
 
                      <!-- FORM  -->
                     <form method="POST">
+                        <!-- -------------- -->
                         <!-- BUTTON DELETE  -->
-                        <td><input type="hidden"  name="id_vacation"  value="<?php echo $vacation['id']?>">
+                         <!-- -------------- -->
+                        <td>
+                            <input type="hidden"  name="id_vacation"  value="<?php echo $vacation['id']?>">
+                            <input type="hidden"  name="id_email"  value="<?php echo $vacation['email']?>">
                         <button type="submit" class="btn btn-secondary" value="delete_vacation" name="delete_vacation">Delete</button></td>
-                        <!-- ACTION MODIFIER  -->
-                        <td><?php require 'partials/modalVacation.php';?></td>              
+
+                        <!-- -------------- -->
+                        <!-- ACTION UPDATE  -->
+                         <!-- -------------- -->
+                        <td><?php require 'partials/modalUpdateVacation.php';?></td>              
                     </form>    
                 </tr>
             <?php } ?>

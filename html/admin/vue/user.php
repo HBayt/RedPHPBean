@@ -48,7 +48,7 @@
             <!-- ------------------------------------------------- -->    
             <!-- CRUD Actions / Modal windows -->     
             <!-- ------------------------------------------------- -->    
-            <td><a href="/html/admin/vacation.php?user_id=<?php echo $u->id ?>&user_name=<?php echo $u->name ?>"><button class="btn btn-primary">Vacation</button></a></td>
+            <td><a href="/html/admin/vacationlist.php?user_id=<?php echo $u->id ?>&user_name=<?php echo $u->name ?>"><button class="btn btn-primary">Vacation</button></a></td>
             <td><?php require 'partials/modalDetailUser.php';?></td>
             <td><?php require 'partials/modalUser.php';?></td>
             <td>

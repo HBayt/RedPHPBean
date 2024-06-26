@@ -6,31 +6,36 @@ if($_SESSION["login"]) {
     require '../config.php';
     require 'vue/partials/header.php';
     include '../utils/connectdb.php';
-    include '../model/task.php';
-    include '../model/group.php';
+    include '../model/tasked.php';
+    include '../model/user.php';
     include 'vue/partials/nav.php';
 
-    $task = getTasks();
-    $group = getGroup();
+
+    $taskeds = getTaskeds();
+
+
+    /* 
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         if(isset($_POST['action'])){
 
             if ($_POST['action'] == 'createTask') {
-                createTask($_POST['name'], $_POST['color'], $_POST['weekdays'], $_POST['idGroup']);
+                createTasked($_POST['name'], $_POST['color'], $_POST['weekdays'], $_POST['idGroup']);
             } elseif ($_POST['action'] == 'deleteTask'){
-                deleteTask($_POST['id']);
+                deleteTasked($_POST['id']);
             } elseif ($_POST['action'] == 'updateTask'){
-                updateTask($_POST['id'], $_POST['name'], $_POST['color'], $_POST['weekdays'], $_POST['idGroup']);
+                updateTasked($_POST['id'], $_POST['name'], $_POST['color'], $_POST['weekdays'], $_POST['idGroup']);
             }
             
         }
         // header("Refresh:0");
-        header("Location: /html/admin/task.php");
+        header("Location: /html/admin/tasked.php");
     }
+
+    */ 
     
-    require 'vue/task.php';
+    require 'vue/tasked.php';
     require 'vue/partials/footer.php';
 
 } else {

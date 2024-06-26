@@ -12,6 +12,7 @@
                 <a class="nav-link" href="/html/admin/user.php">Users</a>
                 <a class="nav-link" href="/html/admin/vacationlist.php">Vacations</a>
                 <a class="nav-link" href="/html/admin/task.php">Tasks</a>
+                <a class="nav-link" href="/html/admin/tasked.php">Taskeds</a>
                 <a class="nav-link" href="/html/admin/addressee.php">Emails</a>
             </div>
 

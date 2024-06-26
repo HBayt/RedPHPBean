@@ -1,11 +1,11 @@
 
     <!-- BUTTON TO CREATE NEW ADDRESSEE-->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createVacationModal">
         Create
     </button>
 
     <!-- Modal CREATE NEW ADDRESSEE -->
-    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="id_createReceiver" aria-hidden="true">
+    <div class="modal fade" id="createVacationModal" tabindex="-1" role="dialog" aria-labelledby="id_createReceiver" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
