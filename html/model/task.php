@@ -1,4 +1,5 @@
 <?php
+// -----------------------------------------------
 /**
  * Create an task
  * @param string $name of the task  
@@ -6,6 +7,7 @@
  * @param array $weekdays on which the task should complete must be an array
  * @param integer $group_ids
  */
+// -----------------------------------------------
 function createTask ($name, $color, $weekdays, $group_ids) {
     $task = R::dispense( 'task' );
     $task->name = $name;
@@ -18,6 +20,7 @@ function createTask ($name, $color, $weekdays, $group_ids) {
     R::store($task);
 }
 
+// -----------------------------------------------
 /**
  * updates an task
  * @param integer $id of the task  
@@ -26,6 +29,7 @@ function createTask ($name, $color, $weekdays, $group_ids) {
  * @param array $weekdays on which the task should complete must be an array
  * @param integer $group_ids
  */
+// -----------------------------------------------
 function updateTask ($id, $name, $color, $weekdays, $group_ids) {
     $task = R::load('task', $id);
     $task->name = $name;
@@ -42,10 +46,12 @@ function updateTask ($id, $name, $color, $weekdays, $group_ids) {
     R::store($task);
 }
 
+// -----------------------------------------------
 /**
  * deletes an task
  * @param integer $id of the task
  */
+// -----------------------------------------------
 function deleteTask($id) {
     $task = R::load( 'task', $id ); 
     foreach($task->ownTaskedList as $tasked){
@@ -54,14 +60,19 @@ function deleteTask($id) {
     R::trash($task);
 }
 
+
+// -----------------------------------------------
 /**
  * Find all tasks
  * @return array of redbean objects
  */
+// -----------------------------------------------
 function getTasks() {
     return R::findAll( 'task' );
 }
 
+// ___________________________________________________________________________________________________
+// ___________________________________________________________________________________________________
 /**
  * Attributes tasks to users between the given dates
  * @param DateTime object $from
@@ -84,6 +95,8 @@ function gennerateTasks($from, $to){
             For checking whether it is empty or not, you better trim() the string as it removes spaces and spaces are counted as character; 
             If you check emptiness with empty() function.
         */ 
+
+        // H. BAYTAR 
         if($t->title == null || $t->user_id == null || (new DateTime($t->start) >= $from) ){
             R::trash($t);
         }
@@ -92,9 +105,11 @@ function gennerateTasks($from, $to){
     /* 
     <?php 
         $date = new \DateTime('NOW');
-        $formatedDate1 = $date->format('l'); // Jour de la semaine en anglais, ex. Tuesday
-        $formatedDate2 = $date->format('c');// Date, ex. 2024-06-25T14:56:43+02:00
-        echo "<h1>".$formatedDate2."<h1>"; 
+        $formatedDate_1 = $date->format('l'); // Jour de la semaine en anglais, ex. Tuesday
+        $formatedDate_2 = $date->format('c');// Date, ex. 2024-06-25T14:56:43+02:00
+
+        echo "<h1>".$formatedDate_1."<h1>"; 
+        echo "<h1>".$formatedDate_2."<h1>"; 
     ?> 
     */ 
     
@@ -134,7 +149,13 @@ function gennerateTasks($from, $to){
     } 
 }
 
+// ___________________________________________________________________________________________________
+// ___________________________________________________________________________________________________
+
+// -----------------------------------------------
 // No idea what this is about but why not 
+// -----------------------------------------------
+
 function checkRelation ($group, $groupList){
     $result = false;
 
@@ -147,6 +168,10 @@ function checkRelation ($group, $groupList){
     return $result;
 }
 
+
+// -----------------------------------------------
+// -----------------------------------------------
+// -----------------------------------------------
 function getAvailableUser($users, $weekday) {
     $AvailableUser = [];
     foreach ($users as $user) {
@@ -162,6 +187,10 @@ function getAvailableUser($users, $weekday) {
     return $AvailableUser;
 }
 
+
+// -----------------------------------------------
+// -----------------------------------------------
+// -----------------------------------------------
 function getUserWithoutVacation ($users, $date) {
     $AvailableUser = [];
     for($i = 0; $i < count($users); $i++){
@@ -181,6 +210,9 @@ function getUserWithoutVacation ($users, $date) {
     return $AvailableUser ;
 }
 
+
+// ___________________________________________________________________________________________________
+// ___________________________________________________________________________________________________
 /**
  * Searches users who have done the least task 
  * @param $user array of redbean objects list of users to check
@@ -205,10 +237,54 @@ function getUserWithLeastTask($user) {
     return $usersOutput[0];
 }
 
+// -----------------------------------------------
+/**
+ * changes the current holder of a task 
+ * @param integer $tasked_id 
+ */
+// -----------------------------------------------
+function randomPersonForTask ($tasked_id) {
+    $tasked = R::load('tasked', $tasked_id);
+    $users = [];
+    foreach ($tasked->task->sharedGroup as $group) {
+        $users = array_merge($users, $group->ownUserList);
+    }
+    $users = getAvailableUser($users, (new DateTime($tasked->date))->format('l'));
+    $users = getUserWithoutVacation($users, $tasked->date);
+    $user = getUserWithLeastTask($users);
+    $tasked->title = $user->name; 
+    $tasked->user =  $user;
+    R::store($tasked);
+    return $tasked;
+}
+
+// -----------------------------------------------
+/**
+ * changes the current holder of a task for the given $user
+ * @param integer $tasked_id 
+ * @param integer $user 
+ */
+// -----------------------------------------------
+function changePersonForTask ($tasked_id, $user) {
+    $tasked = R::load('tasked', $tasked_id);
+    $user = R::load('user', $user);
+    $tasked->title = $user->name; 
+    $tasked->user =  $user;
+    R::store($tasked);
+    return $tasked;
+}
+
+
+
+// ___________________________________________________________________________________________________
+// ___________________________________________________________________________________________________
+
+// -----------------------------------------------
 /**
  * Formats the tasked task to be display in full callenndar
  * @return 
  */
+// -----------------------------------------------
 function getTaskedAdmin() {
     $taskeds = R::findAll( 'tasked' );
     $array = [];
@@ -224,10 +300,13 @@ function getTaskedAdmin() {
     return $array;
 }
 
+
+// -----------------------------------------------
 /**
  * Formats the tasked task to be display in full callenndar
  * @return 
  */
+// -----------------------------------------------
 function getTasked() {
     $taskeds = R::findAll( 'tasked' );
     $array = [];
@@ -242,34 +321,3 @@ function getTasked() {
     return $array;
 }
 
-/**
- * changes the current holder of a task 
- * @param integer $tasked_id 
- */
-function randomPersonForTask ($tasked_id) {
-    $tasked = R::load('tasked', $tasked_id);
-    $users = [];
-    foreach ($tasked->task->sharedGroup as $group) {
-        $users = array_merge($users, $group->ownUserList);
-    }
-    $users = getAvailableUser($users, (new DateTime($tasked->date))->format('l'));
-    $users = getUserWithoutVacation($users, $tasked->date);
-    $user = getUserWithLeastTask($users);
-    $tasked->title = $user->name; 
-    $tasked->user =  $user;
-    R::store($tasked);
-    return $tasked;
-}
-/**
- * changes the current holder of a task for the given $user
- * @param integer $tasked_id 
- * @param integer $user 
- */
-function changePersonForTask ($tasked_id, $user) {
-    $tasked = R::load('tasked', $tasked_id);
-    $user = R::load('user', $user);
-    $tasked->title = $user->name; 
-    $tasked->user =  $user;
-    R::store($tasked);
-    return $tasked;
-}

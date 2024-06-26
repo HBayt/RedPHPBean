@@ -6,7 +6,7 @@
 
 
 <div class="container">
-<h2>Executed taskeds </h2>
+<h2>completed tasks</h2>
     <!-- ------------------------------------------------- -->  
     <!-- Link to a Modal window to create a new Tasked -->  
     <!-- ------------------------------------------------- -->   
@@ -23,13 +23,13 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">id (tasked)</th>
-            <th scope="col"> start date (tasked)</th>
-            <th scope="col">name (task)</th>
-            <th scope="col">weekdays (task)</th>
-            <th scope="col">title (tasked user)</th>
-            <th scope="col">done? (Y/N)</th>
-            <th scope="col"></th>
+            <th scope="col">Id (tasked)</th>
+            <th scope="col">Task start</th>
+            <th scope="col">Task name</th>
+            <th scope="col">Task weekdays</th>
+            <th scope="col">Completed user</th>
+            <th scope="col">Done tasks</th>
+            <th scope="col">Group</th>
             <th scope="col"></th>
             <th scope="col"></th>
 
@@ -45,55 +45,22 @@
             <tr>
                 <td> <?php  echo $tasked['id']?> </td>   <!-- id (tasked) -->
                 <td> <?php echo (new DateTime($tasked['start']))->format("d.m.Y") ?></td><!-- start date (tasked) -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <td> name (task)  <?php 
-
-                    // $array = array("size" => "XL", "color" => "gold");
-                    // print_r(array_values($array)); // Warning: Undefined array key 2 in C:
-                    // print_r(array_values($tasked));
-                   echo $tasked[2]; // Warning: Undefined array key 2 in C:
-                    
-                ?> </td>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <td>weekdays (task)</td>
-                <td> <?php echo $tasked['title']?> </td><!-- title (tasked user)-->
-                <td>0</td>
+                <td> <?php 
+                    // print_r(array_keys($tasked));
+                    // print_r(array_values($tasked));      
+                    // <?php print_r(array_keys($tasked)); echo "<br>"; print_r(array_values($tasked));                
+                     echo $tasked['name']; ?> 
+            </td>
+                <td><?php 
+                    $datas = json_decode($tasked['weekdays'], TRUE);        
+                    foreach ($datas as $result) { echo $result."<br>"; }
+                ?> 
+                
+            
+            </td><!-- weekdays (of task)-->
+                <td><?php echo $tasked['title']?> </td><!-- title (tasked user)-->
+                <td><?php echo $tasked['done_task']?></td><!-- task_done(s) -->
+                <td><?php $group = getTaskGroupByForeignkey($tasked['group_id']); echo $group['name']; ?> </td><!-- groupe (task/user)-->
 
                     <!-- FORM  -->
                 <form method="POST">
