@@ -6,7 +6,7 @@
 
 
 <div class="container">
-<h2>completed tasks</h2>
+<h2>Completed tasks</h2>
     <!-- ------------------------------------------------- -->  
     <!-- Link to a Modal window to create a new Tasked -->  
     <!-- ------------------------------------------------- -->   
@@ -28,15 +28,10 @@
             <th scope="col">Task name</th>
             <th scope="col">Task weekdays</th>
             <th scope="col">Completed user</th>
-            <th scope="col">Done tasks</th>
+            <th scope="col">Done(?)</th>
             <th scope="col">Group</th>
             <th scope="col"></th>
             <th scope="col"></th>
-
-
-
-
-            </th>
         </tr>
     </thead>
         <!-- TABLE BODY  -->
@@ -50,14 +45,12 @@
                     // print_r(array_values($tasked));      
                     // <?php print_r(array_keys($tasked)); echo "<br>"; print_r(array_values($tasked));                
                      echo $tasked['name']; ?> 
-            </td>
-                <td><?php 
+            </td><!-- weekdays (of task)-->
+            <td><?php 
                     $datas = json_decode($tasked['weekdays'], TRUE);        
                     foreach ($datas as $result) { echo $result."<br>"; }
                 ?> 
-                
-            
-            </td><!-- weekdays (of task)-->
+            </td>
                 <td><?php echo $tasked['title']?> </td><!-- title (tasked user)-->
                 <td><?php echo $tasked['done_task']?></td><!-- task_done(s) -->
                 <td><?php $group = getTaskGroupByForeignkey($tasked['group_id']); echo $group['name']; ?> </td><!-- groupe (task/user)-->
@@ -71,7 +64,9 @@
                         <input type="hidden"  name="id_tasked"  value="<?php echo $tasked['id']?>">
                         <input type="hidden"  name="id_user"  value="<?php echo $tasked['user_id']?>">
                         <input type="hidden"  name="id_task"  value="<?php echo $tasked['task_id']?>">
-                    <button type="submit" class="btn btn-secondary" value="delete_tasked" name="delete_tasked">Delete</button></td>
+
+                        <button type="submit" class="btn btn-secondary" value="delete_tasked" name="delete_tasked">Delete</button>
+                    </td>
 
                     <!-- -------------- -->
                     <!-- ACTION UPDATE  -->

@@ -6,6 +6,19 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTaskModal" style="float: right;">Create </button>
 </div>
 
+<!-- ------------------------------------------------- -->    
+<!-- Task generator (generate form given day to 3 months -->     
+<!-- ------------------------------------------------- -->    
+<div class="container">
+    <form action="/html/admin/generateTasks.php" method="POST">
+        <h3>Generate task</h3>
+        <div class="form-group mt-3">
+            <label>From</label>
+            <input type="date"  class="form-control" name="from" value="<?php echo (new DateTime)->format('Y-m-d'); ?>">
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Generate task</button>
+    </form>
+</div>
 
 <!-- ------------------------------------------------- -->    
 <!-- Task list from MySQL DB  -->     
@@ -15,7 +28,7 @@
             <thead>
                 <tr>
                 <th scope="col">Name</th>
-                <th scope="col"></th>
+                <th scope="col">Weekdays</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col"></th>
@@ -24,14 +37,27 @@
             <?php foreach( $task as $t ) {?>
                 <tr>
                 <td><?php echo $t->name ?></td>
+                <td>
+                    <?php 
+                        $datas = json_decode($t['weekdays'], TRUE);    
+                        $datas = is_array($datas) ? $datas : array($datas);    
+                        // foreach ( $array ?? [] as $item ) {
+                        foreach ($datas as $result) { echo $result." "; }
+                    ?> 
+                </td>
                 <td></td>
                 <td><?php include 'partials/modaltask.php'; ?></td>
-                <td>
+                <td> 
+                    <!-- ---------------------- -->   
+                    <!-- BUTTTON MODAL 'Delete' -->
+                    <!-- ---------------------- -->   
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal<?php echo $t->id ?>">
                         Delete
                     </button>
 
-                    <!-- Modal -->
+                    <!-- ------------------------------------------------------------- -->    
+                    <!-- Modal window to create a new task (to insert into db MySQL)   -->     
+                    <!-- ------------------------------------------------------------- -->    
                     <div class="modal fade" id="deleteModal<?php echo $t->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -59,21 +85,6 @@
     
             <?php } ?> 
     </table>
-
-
-
-	<!-- ------------------------------------------------- -->    
-	<!-- Task generator (generate form given day to 3 months -->     
-	<!-- ------------------------------------------------- -->    
-    <form action="/html/admin/generateTasks.php" method="POST">
-        <h3>Generate task</h3>
-        <div class="form-group mt-3">
-            <label>From</label>
-            <input type="date"  class="form-control" name="from" value="<?php echo (new DateTime)->format('Y-m-d'); ?>">
-        </div>
-        <button type="submit" class="btn btn-primary mt-3">Generate task</button>
-    </form>
-
 
     <!-- ------------------------------------------------------------- -->    
     <!-- Modal window to create a new task (to insert into db MySQL) -->     

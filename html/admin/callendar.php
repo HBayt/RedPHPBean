@@ -12,11 +12,12 @@ $task = getTasks();
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        events: <?php echo json_encode(getTaskedAdmin()) ?>
-    });
+        
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: <?php echo json_encode(getTaskedAdmin()) ?>
+        });
 
     calendar.render();
     });
@@ -46,14 +47,21 @@ $task = getTasks();
                 <?php echo $t->name ?>
             </div>
         <?php } ?>
+
+
         <div id='calendar' class="mt-5"></div>
         
     </div>
 </div>
 
 </section>
+
+
+
 <?php
 require 'vue/partials/footer.php';
+
+
 } else {
     header("Location: /admin/");
 } 

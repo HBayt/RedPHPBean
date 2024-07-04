@@ -16,5 +16,9 @@ echo "<pre>";
 var_dump($_SESSION); // Affiche toutes les variables de session pour le debugging
 echo "</pre>";
 
+
+print_r($array); 
+
 exit();
 ?>
+

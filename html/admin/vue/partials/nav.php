@@ -14,6 +14,7 @@
                 <a class="nav-link" href="/html/admin/task.php">Tasks</a>
                 <a class="nav-link" href="/html/admin/tasked.php">Taskeds</a>
                 <a class="nav-link" href="/html/admin/addressee.php">Emails</a>
+                <a class="nav-link" href="/html/admin/test.php">Test</a>
             </div>
 
             <div class="float-right">
