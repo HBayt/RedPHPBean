@@ -1,25 +1,26 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#alter-modal-<?php echo $t->id; ?>">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateTaskModal-<?php echo $t->id; ?>">
     Update
 </button>
 
 <!-- ------------------- --> 
 <!-- Modal Task / Update --> 
 <!-- ------------------- --> 
-<div class="modal fade" id="alter-modal-<?php echo $t->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateTaskModal-<?php echo $t->id; ?>" tabindex="-1" role="dialog" aria-labelledby="UpdateModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
 		
 		<!-- Modal header --> 
         <div class="modal-header">
 			<!-- Modal window / Title --> 
-            <h5 class="modal-title" id="exampleModalLabel">Update task</h5>
+            <h5 class="modal-title" id="UpdateModalLabel">Update task</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
 
+        <!-- --------------------------------------------------- --> 
 		<!-- Modal Body/Content & Form --> 
-
+         <!-- --------------------------------------------------- --> 
         <form method="POST" class="task">
             <input type="hidden"  name="action"  value="updateTask">
             <input type="hidden"  name="id"  value="<?php echo $t->id; ?>">
@@ -74,16 +75,33 @@
 				<!-- ----------------- --> 
                 <div class="form-group mt-3">
                 <label>Group</label>
-                <?php foreach ( $group as $g ){ ?>
-                    <div class="form-check">
-                        <input class="form-check-input" name="idGroup[]" type="checkbox" value="<?php echo $g->id ?>" id="flexCheckDefault"  <?php if (checkRelation($g, $t->sharedGroup)) { echo 'checked';}  ?>>
-                        <label class="form-check-label">
-                            <?php echo $g->name ?>
-                        </label>
-                    </div>
-                <?php }  ?>
+               
+                <?php echo "<br>";  // print_r($t->sharedGroup); // if (checkRelation($g, $t->sharedGroup)) { echo 'checked';}  
+                                ?>
+
+                    <?php  foreach ( $group as $g ){    ?>                       
+    
+                        <div class="form-check">
+                            <input 
+                            class="form-check-input" 
+                                name="idGroup[]" 
+                                type="checkbox" 
+                                value="<?php echo $g->id ?>" 
+                                id="flexCheckDefault"  
+                                <?php if (checkRelation($g, $t->sharedGroup)) { echo 'checked';}  
+                                ?>
+                                >
+                            <label class="form-check-label">
+                                <?php echo $g->name ?>
+                            </label>
+                        </div>
+                    <?php }  ?>
                 </div>
             </div>
+
+
+
+            
 
 			<!-- Modal footer --> 
             <div class="modal-footer">
@@ -93,6 +111,15 @@
             </div>
 
         </form><!-- end./Form --> 
+
+
+
+
+
+
+
+
+
         </div>
     </div>
 </div>

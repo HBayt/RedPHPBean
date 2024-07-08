@@ -12,7 +12,19 @@ if($_SESSION["login"]) {
     include 'vue/partials/nav.php';
 
     $task = getTasks();
+    // print_r($task ); 
+    
     $group = getGroup();
+    // print_r($group ); 
+
+
+
+
+
+
+
+
+
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
@@ -27,6 +39,16 @@ if($_SESSION["login"]) {
             }
             
         }
+
+
+
+
+
+
+
+
+
+
         // header("Refresh:0");
         header("Location: /html/admin/task.php");
     }

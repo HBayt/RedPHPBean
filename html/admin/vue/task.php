@@ -29,58 +29,65 @@
                 <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Weekdays</th>
-                <th scope="col"></th>
+                <th scope="col">Group(s)</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
                 </tr>
             </thead>
+
             <?php foreach( $task as $t ) {?>
                 <tr>
-                <td><?php echo $t->name ?></td>
-                <td>
-                    <?php 
-                        $datas = json_decode($t['weekdays'], TRUE);    
-                        $datas = is_array($datas) ? $datas : array($datas);    
-                        // foreach ( $array ?? [] as $item ) {
-                        foreach ($datas as $result) { echo $result." "; }
-                    ?> 
-                </td>
-                <td></td>
-                <td><?php include 'partials/modaltask.php'; ?></td>
-                <td> 
-                    <!-- ---------------------- -->   
-                    <!-- BUTTTON MODAL 'Delete' -->
-                    <!-- ---------------------- -->   
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal<?php echo $t->id ?>">
-                        Delete
-                    </button>
+                    <td><?php echo $t->name ?></td>
+                    <td>
+                        <?php 
+                            $datas = json_decode($t['weekdays'], TRUE);    
+                            $datas = is_array($datas) ? $datas : array($datas);       
+                            // print_r( $datas ); echo "<br>"; 
+                            // foreach ( $array ?? [] as $item ) {
+                            foreach ($datas as $result) { echo $result."<br>"; }
+                        ?> 
+                    </td>
+                    <td> 
+                        <?php  
+                            // Groups attributed to task 
+                            foreach ( $group as $g ){ if (checkRelation($g, $t->sharedGroup)) { echo $g->name.'<br>';}  }
+                        ?>
+                    </td>
+                    <td><?php include 'partials/modaltask.php'; ?></td>
+                    <td> 
+                        <!-- ---------------------- -->   
+                        <!-- BUTTTON MODAL 'Delete' -->
+                        <!-- ---------------------- -->   
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal<?php echo $t->id ?>">
+                            Delete
+                        </button>
 
-                    <!-- ------------------------------------------------------------- -->    
-                    <!-- Modal window to create a new task (to insert into db MySQL)   -->     
-                    <!-- ------------------------------------------------------------- -->    
-                    <div class="modal fade" id="deleteModal<?php echo $t->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Are you sure ?</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <form method="POST">
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <form method="POST">
-                                        <input type="hidden"  name="id" value="<?php echo $t->id ?>">
-                                        <input type="hidden"  name="action"  value="deleteTask">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
+                        <!-- ------------------------------------------------------------- -->    
+                        <!-- Modal window to create a new task (to insert into db MySQL)   -->     
+                        <!-- ------------------------------------------------------------- -->    
+                        <div class="modal fade" id="deleteModal<?php echo $t->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure ?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-                            </form>
+                                <form method="POST">
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <form method="POST">
+                                            <input type="hidden"  name="id" value="<?php echo $t->id ?>">
+                                            <input type="hidden"  name="action"  value="deleteTask">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
+                    </td>
                 </tr>
     
             <?php } ?> 
@@ -89,18 +96,17 @@
     <!-- ------------------------------------------------------------- -->    
     <!-- Modal window to create a new task (to insert into db MySQL) -->     
     <!-- ------------------------------------------------------------- -->    
-    <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="CreateModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
 
         <div class="modal-content">
 
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Create</h5>
+            <h5 class="modal-title" id="CreateModalLabel">Create</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-
 
         <!-- Form POST for creating new task -->     
         <form method="POST" class="task">

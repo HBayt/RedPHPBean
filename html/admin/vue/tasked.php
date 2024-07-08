@@ -38,22 +38,32 @@
     <tbody>
         <?php foreach ( $taskeds as $tasked ) { ?>
             <tr>
-                <td>aa  <?php  echo $tasked['id']?> </td>   <!-- id (tasked) -->
+                <td><?php  echo $tasked['id']?> </td>   <!-- id (tasked) -->
                 <td> <?php echo (new DateTime($tasked['start']))->format("d.m.Y") ?></td><!-- start date (tasked) -->
                 <td> <?php 
                     // print_r(array_keys($tasked));
                     // print_r(array_values($tasked));      
-                    // <?php print_r(array_keys($tasked)); echo "<br>"; print_r(array_values($tasked));                
-                     echo $tasked['name']; ?> 
+                    // <?php print_r(array_keys($tasked)); echo "<br>"; print_r(array_values($tasked));      
+                    
+                    
+                    $task = getTaskName($tasked['task_id']); 
+                    // $task_name = substr($task["name"], 0, 10);
+                    $task_name = $task["name"];
+                    echo $task_name ;                     
+                     
+                     ?> 
             </td><!-- weekdays (of task)-->
             <td><?php 
-                    $datas = json_decode($tasked['weekdays'], TRUE);        
+                    $datas = json_decode($task['weekdays'], TRUE);        
                     foreach ($datas as $result) { echo $result."<br>"; }
                 ?> 
             </td>
-                <td><?php echo $tasked['title']?> </td><!-- title (tasked user)-->
-                <td><?php echo $tasked['done_task']?></td><!-- task_done(s) -->
-                <td><?php $group = getTaskGroupByForeignkey($tasked['group_id']); echo $group['name']; ?> </td><!-- groupe (task/user)-->
+                <td><?php echo $tasked['user_name']?> </td><!-- title (tasked user)-->
+                <td><?php echo $tasked['tasked_done']?></td><!-- task_done(s) -->
+                <td><?php echo $tasked['group_name']?> 
+                
+            
+            </td><!-- groupe (task/user)-->
 
                     <!-- FORM  -->
                 <form method="POST">
@@ -62,7 +72,7 @@
                     <!-- -------------- -->
                     <td>
                         <input type="hidden"  name="id_tasked"  value="<?php echo $tasked['id']?>">
-                        <input type="hidden"  name="id_user"  value="<?php echo $tasked['user_id']?>">
+                        <input type="hidden"  name="id_user"  value="<?php echo $tasked['tasked_user']?>">
                         <input type="hidden"  name="id_task"  value="<?php echo $tasked['task_id']?>">
 
                         <button type="submit" class="btn btn-secondary" value="delete_tasked" name="delete_tasked">Delete</button>
@@ -71,7 +81,7 @@
                     <!-- -------------- -->
                     <!-- ACTION UPDATE  -->
                     <!-- -------------- -->
-                    <td><?php require 'partials/modalUpdateVacation.php';?></td>              
+                    <td><?php require 'partials/modalUpdateTasked.php';?></td>              
                 </form>    
             </tr>
         <?php } ?>
@@ -119,14 +129,6 @@
                 </form>
             </div>
         </div>
-    </div> <!-- End .Modal-Create -->
+    </div> <!-- End .Modal-Create -->    
+</section> 
 
-
-
-
-
-
-
-
-    
-</section>

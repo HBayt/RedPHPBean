@@ -63,12 +63,16 @@ function getGroupTasksByTaskId($task_id) {
 
 function gennerateTasks($from, $to){
 
-    // Reset all Taskeds 
+    // RESET TABLE "Tasked" (REMOVE ALL OCCURENCES)
     $tasked = R::findAll( 'tasked' ); 
     foreach ($tasked as $t) {
         R::trash($t); 
     }
 
+    // RESET AUTO INCREMENT PRIMYARY KEY VALUE 
+    R::exec( "ALTER TABLE `tasked` AUTO_INCREMENT=1" );  
+
+ 
     // _________________________________________________
     // GET ALL TASKS WITH THEIR GROUP AND USERS
     // _________________________________________________
@@ -91,6 +95,7 @@ function gennerateTasks($from, $to){
     while($objDateTime <=  $to){
 
         // FOR ALL TASKS IN THE DATABSE "TASK" TABLE 
+        $auto_increment_value = 1; 
         foreach ($tasks as $task) {
             // GET TASK NAME 
             $task_name = $task['name'];     
@@ -189,13 +194,15 @@ function gennerateTasks($from, $to){
 
                             // CREATE TASKED    
                             $tasked = R::dispense( 'tasked' );
+
+ 
                             $tasked->title = $val_randomUser['name']; 
                             $tasked->start = $objDateTime;                        
                             $tasked->user_id =  $val_randomUser['user_id'];
                             $tasked->task_id = $task['id'];
-
+                           
                             // INSERT TASKED INTO DATABASE 
-                            $tasked_id = R::store($tasked);  
+                            R::store($tasked);  
 
                     } // IF NOT EMPTY "UNIQUE" USERS ARRAY 
                    
@@ -229,6 +236,7 @@ function getUsersByGroup($group_id, $task_id){
     // WHERE `user`.`group_id` LIKE 4 AND  `group_task`.`task_id`  LIKE 16;
     return $group; 
 }
+
 
 
 // _____________________________________________________________________________________
@@ -366,6 +374,25 @@ function getTasked() {
         $array[] = $task;
     }
     return $array;
+}
+
+
+
+// ___________________________________________________________________________________________________
+// // USED IN FILe ModalTask (Button Update in http://localhost/html/admin/task.php)
+// TO DISPLAY HTML CHECKED LIST 
+// ___________________________________________________________________________________________________
+
+function checkRelation ($group, $groupList){
+    $result = false;
+
+    foreach ($groupList as $g) {
+        if($group->id == $g->id) {
+            $result = true;
+        }
+    }
+
+    return $result;
 }
 
 

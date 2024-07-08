@@ -57,7 +57,7 @@
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <form method="POST">
                                     <input type="hidden"  name="id_admin" value="<?php echo $a->id ?>">
-                                    <button type="submit" class="btn btn-danger">DELETE</button>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </div>
                         </form>

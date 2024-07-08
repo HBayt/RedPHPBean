@@ -14,7 +14,7 @@ if($_SESSION["login"]) {
     $taskeds = getTaskeds();
 
 
-    /* 
+
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
@@ -24,7 +24,7 @@ if($_SESSION["login"]) {
                 createTasked($_POST['name'], $_POST['color'], $_POST['weekdays'], $_POST['idGroup']);
             } elseif ($_POST['action'] == 'deleteTask'){
                 deleteTasked($_POST['id']);
-            } elseif ($_POST['action'] == 'updateTask'){
+            } elseif ($_POST['action'] == 'updateTasked'){
                 updateTasked($_POST['id'], $_POST['name'], $_POST['color'], $_POST['weekdays'], $_POST['idGroup']);
             }
             
@@ -33,7 +33,10 @@ if($_SESSION["login"]) {
         header("Location: /html/admin/tasked.php");
     }
 
-    */ 
+
+
+
+    // create_vacation 
     
     require 'vue/tasked.php';
     require 'vue/partials/footer.php';
