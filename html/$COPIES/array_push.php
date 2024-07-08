@@ -1,7 +1,9 @@
 <?php 
+// https://www.geeksforgeeks.org/how-to-push-both-key-and-value-into-php-array/ 
+
+
 /*
 Approach 1: Using Square Bracket [] Syntax
-
 A value can be directly assigned to a specific key by using the square bracket syntax.
 
 */ 

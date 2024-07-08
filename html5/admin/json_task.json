@@ -1,0 +1,291 @@
+array(18) {
+    [
+        0
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(1) "1"[
+            "name"
+        ]=> string(14) "Ramon Odermatt"[
+            "email"
+        ]=> string(28) "ramon.odermatt.ged@gmail.com"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(20) "["Monday","Tuesday"]"
+    } [
+        1
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(1) "2"[
+            "name"
+        ]=> string(11) "Jean gaetan"[
+            "email"
+        ]=> string(28) "ramon.odermatt.ged@gmail.com"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(52) "["Monday","Tuesday","Wednesday","Thursday","Friday"]"
+    } [
+        2
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(2) "33"[
+            "name"
+        ]=> string(13) "Grace Rudolph"[
+            "email"
+        ]=> string(26) "grace.rudolf@battenberg.ch"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(20) "["Monday","Tuesday"]"
+    } [
+        3
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(2) "34"[
+            "name"
+        ]=> string(16) "Dejan Simonovski"[
+            "email"
+        ]=> string(30) "dejan.simonovski@battenberg.ch"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(20) "["Monday","Tuesday"]"
+    } [
+        4
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(2) "35"[
+            "name"
+        ]=> string(15) "Thibault Blaser"[
+            "email"
+        ]=> string(29) "thibault.blaser@battenberg.ch"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(29) "["Monday","Tuesday","Friday"]"
+    } [
+        5
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(2) "36"[
+            "name"
+        ]=> string(11) "Nora Räber"[
+            "email"
+        ]=> string(25) "nora.raeber@battenberg.ch"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(20) "["Monday","Tuesday"]"
+    } [
+        6
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(3) "116"[
+            "name"
+        ]=> string(14) "Jannik Filardo"[
+            "email"
+        ]=> string(28) "jannik.filardo@battenberg.ch"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(43) "["Monday","Tuesday","Wednesday","Thursday"]"
+    } [
+        7
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(3) "117"[
+            "name"
+        ]=> string(14) "Janick Baumann"[
+            "email"
+        ]=> string(28) "janick.baumann@battenberg.ch"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(43) "["Monday","Tuesday","Wednesday","Thursday"]"
+    } [
+        8
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(3) "118"[
+            "name"
+        ]=> string(12) "Kevin Locher"[
+            "email"
+        ]=> string(26) "kevin.locher@battenberg.ch"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(43) "["Monday","Tuesday","Wednesday","Thursday"]"
+    } [
+        9
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(3) "119"[
+            "name"
+        ]=> string(12) "Amin Arslani"[
+            "email"
+        ]=> string(26) "amin.arslani@battenberg.ch"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(32) "["Monday","Tuesday","Wednesday"]"
+    } [
+        10
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(3) "120"[
+            "name"
+        ]=> string(11) "Aaron Bless"[
+            "email"
+        ]=> string(25) "aaron.bless@battenberg.ch"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(32) "["Monday","Tuesday","Wednesday"]"
+    } [
+        11
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(3) "121"[
+            "name"
+        ]=> string(13) "Andrija Draca"[
+            "email"
+        ]=> string(27) "andrija.draca@battenberg.ch"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(32) "["Monday","Tuesday","Wednesday"]"
+    } [
+        12
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(3) "122"[
+            "name"
+        ]=> string(9) "Kim Feyer"[
+            "email"
+        ]=> string(23) "kim.feyer@battenberg.ch"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(33) "["Monday","Wednesday","Thursday"]"
+    } [
+        13
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(3) "123"[
+            "name"
+        ]=> string(12) "Nevio Romano"[
+            "email"
+        ]=> string(26) "nevio.romano@battenberg.ch"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(33) "["Wednesday","Thursday","Friday"]"
+    } [
+        14
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(3) "124"[
+            "name"
+        ]=> string(12) "Victor Gashi"[
+            "email"
+        ]=> string(26) "victor.gashi@battenberg.ch"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(43) "["Monday","Tuesday","Wednesday","Thursday"]"
+    } [
+        15
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(3) "125"[
+            "name"
+        ]=> string(21) "Grittideth Watanakula"[
+            "email"
+        ]=> string(35) "grittideth.watanakula@battenberg.ch"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(30) "["Monday","Thursday","Friday"]"
+    } [
+        16
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(3) "128"[
+            "name"
+        ]=> string(13) "Halide Baytar"[
+            "email"
+        ]=> string(27) "halide.baytar@battenberg.ch"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(52) "["Monday","Tuesday","Wednesday","Thursday","Friday"]"
+    } [
+        17
+    ]=> array(6) {
+        [
+            "id"
+        ]=> string(3) "147"[
+            "name"
+        ]=> string(6) "HB2018"[
+            "email"
+        ]=> string(27) "halide.baytar2018@gmail.com"[
+            "done_task"
+        ]=> string(1) "0"[
+            "group_id"
+        ]=> string(1) "4"[
+            "weekdays"
+        ]=> string(52) "["Monday","Tuesday","Wednesday","Thursday","Friday"]"
+    }
+}
