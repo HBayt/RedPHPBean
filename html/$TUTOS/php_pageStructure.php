@@ -70,7 +70,19 @@ else {
     // NO USER IS LOGGED IN TO THE TASK MANAGEMENT APPLICATION 
     // _________________________________________________________________
 
-     header("Location: /html/admin/"); // OK -> Firefox : http://localhost/html/admin/ 
+
+    // ______________________________________
+    // ORIGINAL SERVEUR LINUX
+    // header("Location: /admin/"); 
+
+    // THIS INSTRUCTION/COMMAND IS KO ON XAMPP BECAUSE TASK MANAGEMENT CODE IS IN A FOLDER NAMED 'html' 
+    // ______________________________________
+
+
+    // ______________________________________
+    // DEV LOCAL SERVEUR XAMPP 
+    // ______________________________________
+     header("Location: /html/admin/"); // OK sur XAMPP -> Firefox : http://localhost/html/admin/ 
       
     } 
     

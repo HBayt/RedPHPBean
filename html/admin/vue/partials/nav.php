@@ -6,7 +6,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link" href="/html/admin/admin.php">Admin</a>         
+                <a class="nav-link" href="/html/admin/admin.php">Admins</a>         
                 <a class="nav-link" href="/html/admin/callendar.php">Callendar</a>                       
                 <a class="nav-link" href="/html/admin/group.php">Groups</a>
                 <a class="nav-link" href="/html/admin/user.php">Users</a>

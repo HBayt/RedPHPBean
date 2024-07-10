@@ -8,8 +8,9 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 // UPDATE `tasked` SET `title`='Halide BAYTAR',`user_id`=128 WHERE `start`=curdate(); 
 
-
-// Create mail into MySQL DB if not mail found 
+//________________________________________________________
+// Create A DEFAULT EMAIL INTO MySQL DB IF NOT EMAIL FOUND  
+//________________________________________________________
 function createDefaultMail ($text) {
 
     $mails = R::findAll( 'mail' );
@@ -22,13 +23,17 @@ function createDefaultMail ($text) {
 
 }
 
-// Get mail from MySQL DB 
+//________________________________________________________
+// GET /SELECT EMAIL FROM MySQL DB  
+//________________________________________________________
 function getMail () {
     $mails = R::findAll( 'mail' );
     return $mails[1];
 }
 
-// Update mail from MySQL DB 
+//________________________________________________________
+// UPDATE THE EMAIL SAVED/ INSERTED INTO MySQL DB 
+//________________________________________________________
 function updateMail ($text) {
     $mail = getMail();
     $mail->text = $text;
@@ -36,59 +41,44 @@ function updateMail ($text) {
 }
 
 
-
-// ___________________________________________________________________________________________________________________________
-// ___________________________________________________________________________________________________________________________
-
 //________________________________________________________
-// Send mail 
+// SEND A EMAIL 
 //________________________________________________________
+function sendmail($bcc_recipients) {
 
-function sendmail($bcc_resipients) {
-
-    $taskeds = R::findall('tasked');
+    // CREATE PHP DATETIME OBJECT FOR TODAY DATE 
     $now = new DateTime('Today');
     $now->setTime(0, 0, 0, 0);
     $now = $now->format('Y-m-d'); // $now = $now->format('Y-m-d H:i:s'); 
 
-    /*
-    echo "<h1> Hello World! </h1><br>"; 
-    var_dump($taskeds); // OK 
-    echo "<br> <br>"; 
-    */ 
+    // SELECT ALL ASSIGNED TASKS FROM TABLE TASKED (MySQL DATABASE)
+    $taskeds = R::findall('tasked');    
 
     try {
+        // Try/Attempt to create a new instance of the PHPMailer class, with exceptions enabled
+        // Tentative de création d’une nouvelle instance de la classe PHPMailer, avec les exceptions activées
+        $mail = new PHPMailer(true); 
 
-                $mail = new PHPMailer(true); // Tentative de création d’une nouvelle instance de la classe PHPMailer, avec les exceptions activées
+        // SMTP Configuration
+        $mail->isSMTP();
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = SMTP_SECU;
+        $mail->Host = SMTP_HOST; // Your SMTP server
+        $mail->Port = SMTP_PORT;
+        $mail->Username = SMTP_USER; // Your Mailtrap username
+        $mail->Password = SMTP_PASS; // Your Mailtrap password
 
-                // SMTP Configuration
-                $mail->isSMTP();
-                $mail->SMTPAuth = true;
-                $mail->SMTPSecure = SMTP_SECU;
-                $mail->Host = SMTP_HOST; // Your SMTP server
-                $mail->Port = SMTP_PORT;
-                $mail->Username = SMTP_USER; // Your Mailtrap username
-                $mail->Password = SMTP_PASS; // Your Mailtrap password
-
-
+        //________________________________________________________
+        // FOR EACH TASKED GENERETAD (ASSIGNED)
+        //________________________________________________________
         foreach ($taskeds as $t){ 
 
-            /* 
-                // echo "<h1> Task date : ". $result."/ now date : ".$now ."</h1><br>"; // OK 
-                // echo "<h3> Task to do : ". $t->task->name . " -> User task email : ". $t->user->email."/  name : ".$t->user->name ."</h3><br>"; // OK 
-                // var_dump($date); // OK -> $date NOT EQUALS CURRENTDATE() 
-            */   
-                
-            // Task start date
+            // GET Task start date
             $date = new DateTime($t->start);
             $result = $date->format('Y-m-d');    
 
+            // IF TASK START DATE IS SAME AS TODAY (EMAIL SEND DAY)
             if($result == $now){ 
-
-                // echo "<h1> Task date : ". $result."/ now date : ".$now ."</h1><br>"; // OK 
-                // echo "<h3> Task to do : ". $t->task->name . " -> User task email : ". $t->user->email."/  name : ".$t->user->name ."</h3><br>"; // OK 
-                // var_dump($date); // OK -> $date NOT EQUALS CURRENTDATE()
-     
                          
                 // _______________________________
                 // Sender and recipient settings                
@@ -96,51 +86,49 @@ function sendmail($bcc_resipients) {
 
 
                 // Sender (Expéditeur) 
-                // $mail->From = SMTP_USER;  $mail->FromName = "Task Manager";
                 $mail->setFrom(SMTP_USER, "Task Manager");
-
-
-                // Destinataire dont le nom peut également être indiqué en option --> $mail->addAddress($t->user->email); // Primary (To)
+                
+                // Primary (To)
+                // Recipient name can also be specified as an option | Le nom du Destinataire peut également être indiqué en option 
+                // $mail->addAddress($t->user->email); 
                 $mail->addAddress($t->user->email, $t->user->name); // Primary (To) 
- 
 
-                // Send Copies function
-                // $mail->addCC('info@exemple.fr');
+                //____________________________________________________________________________
+                // CREATE AN HIDDEN COPY FOR EACH ADDRESSEE/ RECIPIENT (Copies cachées) 
+                 //____________________________________________________________________________
+                foreach($bcc_recipients as $bcc){         
 
-
-                // // Copies cachées
-                // var_dump($bcc_resipients); echo "<br> <br>"; // $bcc_resipients for each Task 
-                foreach($bcc_resipients as $bcc){        
-
-                    // var_dump($bcc ); 
-
-                    // FIND ADDRESSEE 
+                    // FIND ADDRESSEE/ RECIPIENT 
                     $addressee = getAddresseeById($bcc); 
-                    // var_dump(getAddresseeById($bcc)); 
-                    // var_dump($addressee ); 
 
                     $bcc_name = $addressee['name']; // var_dump($name ); 
                     $bcc_email = $addressee['email']; //  var_dump($email )
 
-                    
-                    // echo "<h1> Recipient email : ". $bcc_email."/ recipient name : ".$bcc_name ."</h1><br>"; // OK 
-                    // echo "<h3> Task to do : ". $t->task->name . " -> User task email : ". $t->user->email."/  name : ".$t->user->name ."</h3><br><br>"; // OK 
-
                     // $mail->addBCC($bcc_email, $name=$bcc_name); 
-                    $mail->addBCC($bcc_email,$bcc_name); 
+                    $mail->addBCC($bcc_email, $bcc_name); 
 
                 }// addBCC() 
 
-                // Email Content (Body)
-                $mail->IsHTML(true); // Set email format to HTML --> DOES NOT Set email format to plain text : $mail->IsHTML(false); 
-                $mail->Subject = $t->task->name . " -> " . $t->user->name; // Objet 
+                // _______________________________________________________
+                // CONTENT (BODY) OF EMAIL TO BE SEND 
+                // _______________________________________________________
 
-                // CREATE HTML-Content 
+                //SET EMAIL BODY CONTENT FORMAT TO HTML ==> DOES NOT SET EMAIL FORMAT TO PLAIN TEXT ==> $mail->IsHTML(false); 
+                $mail->IsHTML(true); 
+
+                // EMAIL OBJECT (TITLE)
+                $mail->Subject = $t->task->name . " -> " . $t->user->name; 
+
+                // CREATE HTML-CONTENT  
                 $body = getMail()->text; // MySQL Request 
-                $body = str_replace('/name', $t->task->name, $body);
-                $body = str_replace('/date', (new DateTime($t->start))->format('d-m-y'), $body);
 
-                // $mail->Body = 'Le texte de votre email en HTML. Il est également possible des mettre des éléments en <b>gras</b>, par exemple.';
+                // REPLACE NAME AND DATE OF EMAIL TO BE SEND WITH THE TASK NAME AND THE EMAIL MESSAGE FROM TABLE "MAIL" (MySQL DATABASE) 
+                $body = str_replace('/name', $t->task->name, $body);
+                $body = str_replace('/date', (new DateTime($t->start))->format('d-m-y'), $body); 
+
+
+
+                //$mail->Body = 'The email message. It is possible to add HTML elements (tags), for example, <b>bold</b>, ... '; 
                 $mail->Body = $body;
                 // $mail->AltBody = 'Le texte comme simple élément textuel';
 
@@ -184,21 +172,25 @@ function sendmail($bcc_resipients) {
 }// Send mail 
 
 
-// _____________________________________________________________________________________________________________________
-// _____________________________________________________________________________________________________________________
 
+//____________________________________________________________________________
 // Get all addressee from MySQL DB 
+//____________________________________________________________________________
 function getAddressee () {
     return R::findAll('addressee');
 }
 
+
+//____________________________________________________________________________
 // Get an addressee from MySQL DB 
+//____________________________________________________________________________
 function getAddresseeById($id) {
     return R::load('addressee', $id ); 
 }
 
-
+//____________________________________________________________________________
 // Insert Into 'Addressee'
+//____________________________________________________________________________
 function createAddressee ($name, $email) {
     $addressee = R::dispense('addressee');
     $addressee->name = $name;
@@ -206,14 +198,17 @@ function createAddressee ($name, $email) {
     return R::store( $addressee );
 }
 
-// Delete 'Addressee' Row
+//____________________________________________________________________________
+// Delete 'Addressee' Row 
+//____________________________________________________________________________
 function deleteAddressee($id) {
     $addressee = R::load('addressee', $id ); 
     R::trash( $addressee );
 }
 
-
+//____________________________________________________________________________
 // Update 'Addressee' Row
+//____________________________________________________________________________
 function updateAddressee($id, $name, $email) {
     $addressee = R::load( 'addressee', $id );
     $addressee->name = $name;
@@ -222,12 +217,9 @@ function updateAddressee($id, $name, $email) {
 }
 
 
-
-// _____________________________________________________________________________________________________________________
-// _____________________________________________________________________________________________________________________
-
-
-
+//____________________________________________________________________________
+// Display AN POPUP WITH A GIVEN MESSAGE 
+//____________________________________________________________________________
 function alert($msg) {
     echo "<script type='text/javascript'>alert('$msg');</script>";
 }

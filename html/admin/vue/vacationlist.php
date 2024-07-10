@@ -1,43 +1,19 @@
 <section class="container mt-5">
 
-
-
-
 <div class="container">
 <h2>Vacations
-        <?php 
+    <?php 
         if(isset($_GET['user_name'])){
-             echo " - ".  $_GET['user_name']; 
+            echo " - ".  $_GET['user_name']; 
         } 
-        ?>
-    </h2>
+    ?>
+</h2>
 
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal" style="float: right;">Create </button>
     <br><br>
     <hr>
     <br>
 </div>
-
-    <?php
-        //session must be started before anything is echoed to the browser
-        // if(session_status()===PHP_SESSION_NONE) session_start();
-
-        //capture the message if it exists, or set $msg to null
-
-        /* 
-
-        if(!empty($_SESSION['message'])){
-            $msg = $_SESSION['message'];
-           
-            unset($_SESSION['message']); //delete the message
-        }else{$msg = null;}
-
-        echo $msg; 
-
-        */ 
-
-    ?>
-
 
     <!-- TABLE VACATION  -->
     <table class="table">
@@ -56,11 +32,6 @@
         </thead>
          <!-- TABLE BODY  -->
         <tbody>
-   
-            <?php 
-                // var_dump($vacations ); 
-                //  var_dump($vacation['id'] ) 
-            ?>
 
             <?php foreach ( $vacations as $vacation ) { ?>
                 <tr>
@@ -80,7 +51,7 @@
                         <td>
                             <input type="hidden"  name="id_vacation"  value="<?php echo $vacation['id']?>">
                             <input type="hidden"  name="id_email"  value="<?php echo $vacation['email']?>">
-                        <button type="submit" class="btn btn-secondary" value="delete_vacation" name="delete_vacation">Delete</button></td>
+                            <button type="submit" class="btn btn-secondary" value="delete_vacation" name="delete_vacation">Delete</button></td>
 
                         <!-- -------------- -->
                         <!-- ACTION UPDATE  -->
@@ -98,7 +69,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Create a vacation</h5>
+                <h5 class="modal-title" id="exampleModalLabel">New vacation</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -116,10 +87,26 @@
                             <input type="date" class="form-control" id="end" name="end" value="" placeholder="end ...">
                         </div>
                     </div> 
+
+
                     <div class="modal-body">
                         <div class="form-group">
                             <label>User email</label>
-                            <input type="text" class="form-control" id="mail" name="mail" value="" placeholder="user email ...">
+							<?php if ( isset($_GET['user_id'])) { ?>
+									<output 
+										type="text" 
+										class="form-control" 
+										id="mail" 
+										name="mail"
+										value="<?php echo$vacation['email'] ?>"
+										placeholder="email"
+									> 
+										<?php echo $vacation['email'] ?>
+									</output>
+
+							<?php } else{?>
+								<input type="text" class="form-control" id="mail" name="mail" value="" placeholder="user email ...">								
+							<?php }?>
                         </div>
                     </div> 
 

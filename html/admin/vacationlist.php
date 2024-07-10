@@ -1,74 +1,95 @@
 <?php
 
+
+// _______________________________________________
+// FILE admin/vacationlist.php  
+// http://localhost/html/admin/vacationlist.php 
+// _______________________________________________
+
+
+// TESTS 
+// console.log("Message"); console.log(variable); 
+// PHP INTERPRETER STOP TO EXECUTE CODE -> die(); 
+// var_dump(VARIABLE ); 
+
+
+// _______________________________________________
+// CREATE SESSSION 
+// _______________________________________________
 session_start();
 
+// _______________________________________________
+// USER IS CONNECTED 
+// _______________________________________________
 if($_SESSION["login"]) {
+
+     // REQUIRED & INCLUDED FILES 
     require '../config.php';
     require_once '../utils/connectdb.php';
     require '../model/user.php';
-    // var_dump( require '../model/user.php'); 
     require '../model/vacation.php';
-   
     require 'vue/partials/header.php';
     include 'vue/partials/nav.php';
-
+    // var_dump( require '../model/user.php'); 
 
     // ______________________________________________________________
     // Get All Vacations or by User ID 
     // ______________________________________________________________
-    // 
+    if(isset($_GET['user_id'])){ 
 
-   
-    if(isset($_POST) &&  isset($_GET['user_id'])){ // ERROR 
+        // GET USER VACATION 
+        $user_name = $_GET['user_name'];         
+        $user_id = $_GET['user_id']; 
+        $user = getUserIdById($user_id); 
+		$vacations = getVacationByUser($user_id);        
 
-        // $vacation_name = $_GET['user_name'];
-        $vacation_id = $_GET['user_id']; 
-        
-        $vacations = getVacationByUser($_GET['user_id']);     
-        
+    } else{
+        // GET ALL VACATIONS 
+        $vacations = getVacations();
     }
-    else{$vacations = getVacations();}
-
-    
 
     // ______________________________________________________________
-    // CREATE VACATION 
+    // IF FORM HTML (CRUD INSTRUCTIONS )
     // ______________________________________________________________
-    if(isset($_POST) && isset($_POST['start']) && isset($_POST['end']) && isset($_POST['mail']) && isset($_POST['create_vacation'])){ // ERROR 
-    
-        $email = (string) $_POST['mail']; 
-        $user = getUserIdByEmail($email); 
-        $vacations = getVacationByUser($user['id']);  
-        createVacation($user['id'], $_POST['start'], $_POST['end']);    
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-       // header("Refresh:0"); 
-       header("Location: /html/admin/vacationlist.php?user_id=".$user['id']."&user_name=".$user["name"]);
+        // ______________________________________________________________
+        // CREATE VACATION 
+        // ______________________________________________________________
+        if(isset($_POST['start']) && isset($_POST['end']) && isset($_POST['create_vacation'])){  
 
-    } 
+            $start = $_POST['start']; 
+            $end = $_POST['end']; 
 
-    // ______________________________________________________________
-    // UPDATE VACATION
-    // ______________________________________________________________ 
+            // PROCESSING / HANDLING A USER'S VACATIONS
+            if(isset($user_id)){ 
+                // GET USER 
+                $user = getUserIdById($user_id);  // var_dump($user ); die();                  
+                                                        
+            } else{
+                // GET EMAIL FROM FORM HTML 
+                $email = (string) $_POST['mail']; 
 
+                // LOOK FOR USER 
+                $user = getUserIdByEmail($email); // var_dump($user ); die(); 
+            }
 
+            // CREATE / INSERT INTO DATABASE THE NEW VACATION 
+            createVacation($user['id'], $start, $end);    
+        } 
 
-        if (isset($_POST) && isset($_POST['start']) && isset($_POST['end']) && isset($_POST['user_id']) && isset($_POST['id_vacation']) && isset($_POST['save_changes'])) {
-            /* 
-                echo $_POST['user_id'] ; 
-                var_dump($_POST['id_vacation']); 
-                var_dump($_POST['start']); 
-                var_dump($_POST['end']); 
-                var_dump($_POST['user_id']); 
-                var_dump($_POST['update_vacation']); 
-            */ 
+        // ______________________________________________________________
+        // UPDATE VACATION
+        // ______________________________________________________________ 
+        if (isset($_POST['start']) && isset($_POST['end']) && isset($_POST['user_id']) && isset($_POST['id_vacation']) && isset($_POST['save_changes'])) {
 
+            $u_id = $_POST['user_id']; 
 
             //________________________________________________________________
             // Form - date format 30.11.2000 | DB - date format 2002-10-23            
             //________________________________________________________________
             $formatInput = 'd.m.Y'; // HTML FORM format 
             $formatDb = 'Y-m-d'; // MySQL DB format
-
 
             // Dates from HTML FORM for 'Vacation Update'
             $startdate = DateTime::createFromFormat($formatInput, $_POST['start']); 
@@ -78,67 +99,70 @@ if($_SESSION["login"]) {
             $db_startdate = $startdate->format( $formatDb); 
             $db_enddate = $enddate->format($formatDb); 
 
-            // RESULTS TESTS 
-            /*
-                echo "Bevor <br>"; // 30.11.2000
-                echo $startdate."<br>"; 
-                echo $enddate."<br><br>";             
-                
-                echo "After <br>";  
-                echo $db_startdate."</br>";
-                echo $db_enddate."</br>"; // 2029-12-23
-            */ 
+            //________________________________________________________________
+            // PROCESSING / HANDLING A USER'S VACATIONS
+            //________________________________________________________________
+            if(isset($u_id)){ 
+                // GET USER 
+                $user = getUserIdById($u_id);  // var_dump($user ); die();                                                                      
+            } else{
+                // GET EMAIL FROM FORM HTML 
+                $email = (string) $_POST['email']; 
 
+                // LOOK FOR USER 
+                $user = getUserIdByEmail($email); // var_dump($user ); die(); 
+            }
 
-            // var_dump($vacation['start'] ) ; 
-            // var_dump($vacation['end'] ); 
-            // var_dump($vacation['name'] ) ; 
-            // var_dump($_POST['email'] ) ;   
-            // var_dump(getUserIdByEmail($email));   
-            // var_dump($_POST['user_id']);         //  timo.blum@battenberg.ch // strval()
-
-            $email = (string) $_POST['email'] ;    
-            $user = getUserIdByEmail($email); 
-            $vacations = getVacationByUser($user['id']);   
-
-
-            // updateVacation( $_POST['update_vacation'], $_POST['start'],  $_POST['end'], $_GET['user_id']) ; 
+            //________________________________________________________________
+            // UPDATE TABLE VACATIONS ROW IN THE DATABASE 
+            //________________________________________________________________
             updateVacation( $_POST['id_vacation'], $db_startdate, $db_enddate,  $user["id"]) ; 
- 
-    
-            // header("Refresh:0"); 
-            // header("Location: /html/admin/vacationlist.php");           
-            header("Location: /html/admin/vacationlist.php?user_id=".$user['id']."&user_name=".$user["name"]);
-
         } 
 
-    // ______________________________________________________________
-    // DELETE VACATION
-    // ______________________________________________________________ 
-    // if (isset($_POST) && isset($_POST['delete_vacation'] )) {
+        // ______________________________________________________________
+        // DELETE VACATION
+        // ______________________________________________________________ 
         if (isset($_POST['delete_vacation'] ) && isset($_POST['id_email'] )) {
 
             $email = (string) $_POST['id_email']; 
             $user = getUserIdByEmail($email); 
-            $vacations = getVacationByUser($user['id']);    
-            // var_dump($user['id']);   
 
-            deleteVacation($_POST['id_vacation']);
-
-            // header("Refresh:0"); 
-            //  header("Location: /html/admin/vacationlist.php");               
-            // header("Location: /html/admin/vacationlist.php?user_id=".$user['id']);
-            header("Location: /html/admin/vacationlist.php?user_id=".$user['id']."&user_name=".$user["name"]);
-    
-    
+            deleteVacation($_POST['id_vacation']);     
         }
 
-    
+
+        // _________________________________________________________
+        // PAGE REDIRECTION AFTER A CRUD ACTION
+        // _________________________________________________________
+
+        if(isset($user_id) && isset($user_name) ) {
+
+            // GET ALL USER VACATIONS 
+            $vacations = getVacationByUser($u_id);   
+            header("Location: /html/admin/vacationlist.php?user_id=".$user_id."&user_name=".$user_name);
+        } else{
+
+            // GET ALL VACATIONS   
+            $vacations = getVacations();   
+            header("Location: /html/admin/vacationlist.php"); // header("Refresh:0");                 
+        }
+
+    }// IF FORM CALLED
+
+    // REQUIRED/ INCLUDED FILES 
     require 'vue/vacationlist.php';
     require 'vue/partials/footer.php';
-        
-    } else {
-        header("Location: /html/admin/");
-    } 
+    
+} else {
+    // ______________________________________
+    // ORIGINAL SERVEUR (LINUX) HEADER 
+    // ______________________________________
+    // header("Location: /admin/"); // Original KO sur XAMPP 
+
+    // ______________________________________
+    // DEV LOCAL SERVEUR (LOCAL XAMPP) HEADER 
+    // ______________________________________
+    header("Location: /html/admin/"); // OK sur XAMPP | Firefox : http://localhost/html/admin/ 
+} 
 
 

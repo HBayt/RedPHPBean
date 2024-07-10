@@ -4,20 +4,27 @@
     Update
 </button>
 
-<!-- Modal -->
-<div class="modal fade" id="updateModal-<?php echo $vacation['id'] ?>" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- MODAL WINDOW (POP-UP) -->
+<div class="modal fade" id="updateModal-<?php echo $vacation['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+
             <div class="modal-header">
+
+                <!--FORM.H5 - POP-UP TITLE -->
                 <h5 class="modal-title" id="exampleModalLabel">Update vacation</h5>
+
+                <!--FORM.BUTTON (CLOSE POP-UP) -->
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <!-- FORM -->
             <form method="POST">
+                
                 <div class="modal-body">
+                    <!--FORM.INPUT (VACATION ID) -->
                     <input type="hidden" id="id_vacation" name="id_vacation" value="<?php echo$vacation['id']?>">
 
                     <!--FORM.INPUT (VACATION START) -->
@@ -27,38 +34,29 @@
                             value="<?php echo (new DateTime($vacation['start']))->format("d.m.Y") ?>"
                             placeholder="Start date">
                     </div>
+                </div>
 
-                    <!--FORM.INPUT (VACATION END ) -->
+                <!--FORM.INPUT (VACATION END ) -->
+                <div class="modal-body">
                     <div class="form-group">
                         <label for="end">End date</label>
                         <input type="text" class="form-control" id="end" name="end"
                             value="<?php echo (new DateTime($vacation['end']))->format("d.m.Y") ?>"
                             placeholder="End date">
                     </div>
+                </div>
 
 
-                    <!--FORM.INPUT (VACATION User name ) 
+                <!--FORM.INPUT (VACATION User email ) -->
+                <div class="modal-body">
                     <div class="form-group">
-                        <label for="name">User name</label>
-                        <input type="text" class="form-control" id="user_name" name="user_name"
-                            value="< ?php echo$vacation['name'] ?>"
-                            placeholder="user_name">
-                    </div>                    
-                    -->
-
-
-                    <!--FORM.INPUT (VACATION User email ) -->
-                    <div class="form-group">
-                        <label for="email">User e-mail</label>
-                        <input type="text" class="form-control" id="email" name="email"
+                        <label for="email">User email</label>
+                        <output type="text" class="form-control" id="email" name="email"
                             value="<?php echo$vacation['email'] ?>"
-                            placeholder="email">
+                            placeholder="email"> <?php echo$vacation['email'] ?></output>
+
+                        <input type="hidden" id="user_id" name="user_id" value="<?php echo$vacation['user_id']?>">
                     </div>
-
-
-                    <input type="hidden" id="user_id" name="user_id" value="<?php echo$vacation['user_id']?>">
-
-
                 </div>
 
 

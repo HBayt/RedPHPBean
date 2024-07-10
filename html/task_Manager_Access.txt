@@ -1,0 +1,8 @@
+Password for Linux Machine
+administrator / Pa$$word1
+Login Site Web (Webbrowser): admin/Admlocal1
+Um E-Mail Adressen hinzuzufügen: /var/www/hthml/model/mail.php
+
+sudo nautilus 
+bit.atelier2024@gmail.com / 8Biel2001$$8
+

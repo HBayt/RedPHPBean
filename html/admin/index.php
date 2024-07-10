@@ -1,4 +1,9 @@
 <?php
+
+// _______________________________________________
+// FILE admin/index.php  
+// _______________________________________________
+
 session_start();
 include '../config.php';
 include '../utils/connectdb.php';

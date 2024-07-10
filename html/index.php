@@ -35,10 +35,11 @@
                 </td>            
                 <td> 
                     <div style="text-align: right;">
-                        <!-- BOUTON Login --> 
+                        <!-- LINK Login (URL)
+                            href="admin/admin.php"
+                            href="../html/admin/admin.php"
+                        --> 
                         <a href="admin/admin.php">Login </a>
-                        <br>
-                        <a href="../html/admin/admin.php">Login (2)</a>
                         <br>  
                         <br> 
                     </div>

@@ -58,7 +58,7 @@
                 </div>
             </div>
             </td>
-            <td><a href="/html/admin/user.php?group_id=<?php echo $g->id ?>"><button type="button" class="btn btn-primary">Users</button></a></td>
+            <td><a href="/html/admin/user.php?group_id=<?php echo $g->id ?>"><button type="button" class="btn btn-primary">Group users</button></a></td>
             </tr>
             
         <?php } ?>

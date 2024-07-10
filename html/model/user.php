@@ -1,5 +1,8 @@
 <?php 
 
+// ____________________________________________________________________________________________
+// INSERT USER OCCURENCE INTO DATABASE TABLE USER 
+// _____________________________________________________________________________________________
 function createUser ($name, $email, $weekdays) {
     $user = R::dispense( 'user' );
     $user->name = $name;
@@ -9,6 +12,9 @@ function createUser ($name, $email, $weekdays) {
     return R::store( $user );
 }
 
+// ____________________________________________________________________________________________
+// UPDATE A USER OCCURENCE FROM THE DATABASE TABLE USER 
+// _____________________________________________________________________________________________
 function updateUser($id, $name, $email, $weekdays) {
     $user = R::load( 'user', $id );
     $user->name = $name;
@@ -17,25 +23,26 @@ function updateUser($id, $name, $email, $weekdays) {
     R::store( $user );
 }
 
+// ____________________________________________________________________________________________
+// SELET ALL USERS
+// _____________________________________________________________________________________________
 function getUser() {
-    // R::getAll( 'select * from books WHERE accepted IS NULL ORDER BY update_time DESC LIMIT 100 ' ); 
-    
-    // $users = R::getAll( 'select * from user WHERE email IS NOT NULL ORDER BY name DESC' ); 
-    // $users = R::findAll( 'user' );
     $users = R::findAll('user' , 'WHERE email IS NOT NULL ORDER BY name ASC');
     return $users;
 }
 
+// ____________________________________________________________________________________________
+// SELECT A USR BY HIS ID GIVEN IN PARAMS 
+// _____________________________________________________________________________________________
+function getUserIdById($id) {
+    $user  = R::findOne( 'user', ' id=?', [$id] ); 
+    return $user; 
+}
 
+// ____________________________________________________________________________________________
+// SELECT AND RETURN A USER BY HIS EMAIL GIVEN IN PARAMS 
+// _____________________________________________________________________________________________
 function getUserIdByEmail($email) {
-
-    // return R::find('user', 'email LIKE ? LIMIT 1', [$email]); 
-    // return R::find ('bean', "battribute is NULL" ); 
-
-    // return R::getRow( 'SELECT * FROM user WHERE email LIKE ? LIMIT 1', [ '%Jazz%' ]); 
-    // return R::getRow( 'SELECT id, email, group_id FROM user WHERE email LIKE ? LIMIT 1', [$email]); 
-
-    //  $user  = R::findOne( 'user', ' email = ? ', [ 'user@mail.com' ] );
     $user  = R::findOne( 'user', ' email=?', [$email] ); // $user = R::findOne('user', 'email = ? ', array($email));
 
     // var_dump( $user ); 
@@ -44,13 +51,17 @@ function getUserIdByEmail($email) {
     
 }
 
-
-
+// ____________________________________________________________________________________________
+// DELETE A USER FROM TABLE "USER" BY HIS ID GIVEN IN PARAMETER  
+// _____________________________________________________________________________________________
 function deleteUser($id) {
     $user = R::load( 'user', $id ); 
     R::trash( $user );
 }
 
+// ____________________________________________________________________________________________
+// SELECT A USER FROM TABLE "USER" BY HIS GROUP_ID GIVEN IN PARAMETER  
+// _____________________________________________________________________________________________
 function getUserByGroup($group_id) {
 
     // R::getAll( 'select * from book where id= :id AND active = :act',array(':id'=>$id,':act' => 1) );
@@ -58,6 +69,3 @@ function getUserByGroup($group_id) {
 
 }
 
-function addVacationToUser ($user_id, $begin, $end) {
-    
-}
