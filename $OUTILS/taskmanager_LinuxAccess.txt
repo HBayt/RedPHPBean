@@ -6,3 +6,6 @@ Um E-Mail Adressen hinzuzufügen: /var/www/hthml/model/mail.php
 sudo nautilus 
 bit.atelier2024@gmail.com / 8Biel2001$$8
 
+
+Serveur web IP 
+http://172.16.20.73/ 
